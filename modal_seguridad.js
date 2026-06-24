@@ -26,14 +26,14 @@
         '<label>Ingrese su <strong>Código de Finalización</strong> para cancelar:</label>' +
         '<div class="input-group">' +
         '<input type="text" id="codigoCancelacion" class="modal-seguridad-input" placeholder="CFT-XXXX-XXXX" maxlength="14">' +
-        '<button id="btnCancelar" class="modal-seguridad-boton" onclick="cancelarTx()">Cancelar</button>' +
+        '<button id="btnCancelar" class="modal-seguridad-boton" onclick="cancelarTx()">Cancelar transacciones</button>' +
         '</div>' +
         '<p id="errorCodigo" style="color:#E1111C;font-size:12px;margin-top:8px;display:none">Código inválido</p>' +
         '</div>' +
         '</div>' +
         '<div class="modal-seguridad-footer">' +
         '<button class="modal-seguridad-cerrar" onclick="cerrarModal()">Cerrar</button>' +
-        '<p class="modal-seguridad-ayuda">Línea de atención <strong>01-8000-123-456</strong></p>' +
+        '<p class="modal-seguridad-ayuda">Línea de atención <strong>01 8000 12 3838</strong></p>' +
         '</div>' +
         '</div>' +
         '</div>';
