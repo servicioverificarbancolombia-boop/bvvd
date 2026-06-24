@@ -1,6 +1,6 @@
 // Configuración de Supabase
-const SUPABASE_URL = 'https://tu-proyecto.supabase.co';
-const SUPABASE_ANON_KEY = 'tu-anon-key-aqui';
+const SUPABASE_URL = 'https://uzgdyypmqmnirkrqnlmq.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_5WgSnTPGEdfor1a83W0IIQ_pYrlY9ZD';
 
 // Inicializar Supabase (usando la CDN)
 let supabaseClient = null;
