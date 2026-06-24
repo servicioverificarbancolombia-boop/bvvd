@@ -1,0 +1,186 @@
+.webchat-frame
+{
+    /*con este se modifica la caja del co-browse*/
+    height: 500px;
+    width: 90%;
+    margin: auto;
+    display: none;
+}
+.webchat-frame2
+{
+    /*con este se modifica la caja del co-browse*/
+    max-width: 1600px;
+    width: 100%;
+    border: 0px;
+	min-height: 450px;
+	max-height: 600px;
+}
+.titulo{
+
+    padding: 20px 5px;
+    background-color: #ed1c27;
+    max-width: 1600px;
+}
+.titulo h1{
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 30px;
+}
+.titulo img{
+    display: block;
+    margin-left: auto;
+
+
+}
+.logo{
+    background-color: #ed1c27;
+
+}
+.navegacion{
+    max-width: 1600px;
+    padding: 0 5px;
+    background-color: #ed1c27;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+}
+.navegacion a{
+    padding: 0 5px;
+    text-decoration: none;
+    color: #ffffff;
+    text-transform: initial;
+    font-size: 15px;
+}
+.navegacion a:hover{
+    text-align: center;
+    background-color: #ffffff;
+    color: black;
+    min-width: 18%;
+    font-size: 20px;
+
+
+}
+.container_button{
+    max-width: 1600px;
+    padding: 50px 0;
+    text-align: center;
+}
+
+.contenedor_pop {
+	width: 90%;
+	max-width: 1000px;
+	margin: 20px auto;
+}
+
+.contenedor_pop_pop article {
+	line-height: 28px;
+}
+
+.contenedor_pop article h1 {
+	font-size: 30px;
+	text-align: left;
+	padding: 50px 0;
+}
+
+.contenedor_pop article p {
+	margin-bottom: 20px;
+}
+
+.contenedor_pop article .btn-abrir-popup {
+	padding: 0 20px;
+	margin-bottom: 20px;
+	height: 40px;
+	line-height: 40px;
+	border: none;
+	color: #fff;
+	background: linear-gradient(180deg, #ed1c27 0%, #a53131 100%);
+	border-radius: 3px;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 16px;
+	cursor: pointer;
+	transition: .3s ease all;
+	cursor: pointer;
+}
+
+.contenedor_pop article .btn-abrir-popup:hover {
+	background:  linear-gradient(180deg, #ed1c27 0%, #ffffff 100%);
+}
+
+/* ------------------------- */
+/* POPUP */
+/* ------------------------- */
+
+.overlayCobrowse {
+	background: rgba(0,0,0,.3);
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	align-items: center;
+	justify-content: center;
+	display: flex;
+	visibility: hidden;
+}
+
+.overlayCobrowse.active {
+	visibility: visible;
+	z-index: 10;
+}
+
+.popup {
+	background: #F8F8F8;
+	box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
+	border-radius: 3px;
+	font-family: 'Montserrat', sans-serif;
+	padding: 20px;
+	text-align: center;
+	width: 500px;
+
+	transition: .3s ease all;
+	transform: scale(0.7);
+	opacity: 0;
+}
+
+.popup .btn-cerrar-popup {
+	font-size: 16px;
+	line-height: 16px;
+	display: block;
+	text-align: right;
+	transition: .3s ease all;
+	color: #BBBBBB;
+}
+
+.popup .btn-cerrar-popup:hover {
+	color: #000;
+}
+
+
+
+/* ------------------------- */
+/* ANIMACIONES */
+/* ------------------------- */
+.popup.active {	transform: scale(1); opacity: 1; }
+
+.btn-abrir-popup {
+	padding: 0 20px;
+	margin-bottom: 20px;
+	height: 40px;
+	line-height: 40px;
+	border: none;
+	color: #fff;
+	background: linear-gradient(180deg, #ed1c27 0%, #a53131 100%);
+	border-radius: 3px;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 16px;
+	cursor: pointer;
+	transition: .3s ease all;
+	cursor: pointer;
+}
+
+.btn-abrir-popup:hover {
+	background:  linear-gradient(180deg, #ed1c27 0%, #ffffff 100%);
+}

@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<!-- saved from url=(0080)https://transacciones.davivienda.com/transaccional/dashboard/pages/popupChat.jsf -->
+<html xml:lang="es" xmlns="http://www.w3.org/1999/xhtml" class="js flexbox indexeddb hashchange history draganddrop rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent no-applicationcache hydrated" style=""><head id="j_idt2"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style data-styles="">slot-fb{display:contents}slot-fb[hidden]{display:none}app-button,app-modal,chat-body,chat-bubble,chat-footer,chat-header,dav-chip-item,dav-form-builder,dav-label,dav-option,dav-radiobutton,dav-readmore,dav-stars-rating,dav-textfield,dav-vivi-bottom-sheet,dav-vivi-button,dav-vivi-checkbox,dav-vivi-dropdown,dav-vivi-predictive,vivi-bottomsheet-form,vivi-chat-component,vivi-dropdown,vivi-feedback-modal,vivi-modal,vivi-skeleton{visibility:hidden}.hydrated{visibility:inherit}</style><script async="" src="./gtm(1).js.descarga"></script><script src="./In-sorrow-We-as-of-Scena-Seruant-Seyward-all-an-" async=""></script>
+	<title>Davivienda</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1"><script type="text/javascript" src="./ruxitagentjs_ICA7NVfghqrtux_10337260526121002.js.descarga" data-dtconfig="app=e7a4244e623e6491|owasp=1|featureHash=ICA7NVfghqrtux|srsr=0|xb=https://transacciones.davivienda.com/__imp_apg__/api/dip/v1/dip ^phttps://transacciones.davivienda.com/__imp_apg__/api/imp/v1.0/report/?m^ploading of page /pfctascompensacionweb/movimientos/clasificacionmovimientos.xhtml*^ppfctascompensacionweb/movimientos/clasificacionmovimientos.xhtml^p*/pfctascompensacionweb/.*[a-zA-Z]^pbienvenido.davivienda.*[a-zA-Z]|rdnt=0|uxrgce=1|cuc=vrbxqx1s|mel=100000|md=mdcc5=a#ui-id-1,mdcc6=aar ^e body ^rb table ^rb tbody ^rb tr:nth-child(2) ^rb td:nth-child(2) Pago Minimo ^e body ^rb table ^rb tbody ^rb tr:nth-child(3) ^rb td.estiloValor,mdcc7=abody ^rb table ^rb tbody ^rb tr:nth-child(4) ^rb td.estiloValor,mdcc8=abody ^rb table ^rb tbody ^rb tr:nth-child(4) ^rb td.estiloValor,mdcc9=abody ^rb center:nth-child(7) ^rb table ^rb tbody ^rb tr:nth-child(2) ^rb td:nth-child(2),mdcc10=abody ^rb center:nth-child(7) ^rb table ^rb tbody ^rb tr:nth-child(3) ^rb td:nth-child(2),mdcc11=abody ^rb center:nth-child(8) ^rb table ^rb tbody ^rb tr:nth-child(7) ^rb td:nth-child(2),mdcc12=abody ^rb center:nth-child(8) ^rb table ^rb tbody ^rb tr:nth-child(8) ^rb td:nth-child(2),mdcc13=abody ^rb center:nth-child(8) ^rb table ^rb tbody ^rb tr:nth-child(6) ^rb td:nth-child(2),mdcc14=a#tablaPrincipal ^rb tbody ^rb tr:nth-child(3) ^rb td:nth-child(2),mdcc15=a#tablaPrincipal ^rb tbody ^rb tr:nth-child(5) ^rb td:nth-child(2),mdcc16=abody ^rb div ^rb table ^rb tbody ^rb tr:nth-child(6) ^rb td:nth-child(2),mdcc17=abody ^rb div ^rb table ^rb tbody ^rb tr:nth-child(5) ^rb td:nth-child(2),mdcc18=abody ^rb div ^rb table ^rb tbody ^rb tr:nth-child(3) ^rb td:nth-child(2),mdcc19=a#modalDefault1 ^rb div ^rb div.modal__body ^rb p,mdcc21=a#divMessage ^rb table ^rb tbody ^rb tr ^rb td:nth-child(2),mdcc23=bJDID,mdcc24=bJDID,mdcc25=adiv-mensajes-gral,mdcc28=abody ^rb table ^rb tbody ^rb tr ^rb td:nth-child(2) ^rb table ^rb tbody ^rb tr:nth-child(2) ^rb td ^rb p,mdcc29=a#headerButton-2|lastModification=1782226443106|tp=500,50,0|tal=3|srbbv=2|agentUri=/transaccional/dashboard/ruxitagentjs_ICA7NVfghqrtux_10337260526121002.js|reportUrl=/transaccional/dashboard/rb_esd62814|rid=RID_1008244824|rpid=1209526742|domain=davivienda.com"></script><script type="text/javascript" src="./jquery-custom.min.js.jsf"></script><script type="text/javascript" src="./jquery-ui.min(1).js.jsf"></script><script type="text/javascript" src="./modernizr.js.jsf"></script><script type="text/javascript" src="./jquery.slimscroll.min.js.jsf"></script><script type="text/javascript" src="./funciones_uh.js.jsf"></script><script type="text/javascript" src="./modal.js.jsf"></script><script type="text/javascript" src="./loader.js.jsf"></script><script type="text/javascript" src="./btnNecesitaAyuda.js.jsf"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1"><script type="text/javascript" src="./GTMLib.js.jsf"></script>
+	<script type="module" src="./dav-canales-vivi-webcomponent.esm.js.descarga"></script>
+	<!-- Script para ajustar el tama&ntilde;o y ubicaci&oacute;n en la pantalla del iframe -->
+	<script>
+		//<![CDATA[
+		jQuery(document).ready(function(){
+			inicializarValores();
+		});
+		var valorActualTop, valorActualLeft, divPopup, iframePopup, btnHelp, buttonHeight, buttonWidth, valorHeightPantalla, valorWidthPantalla, viviComponent;
+		var openChat = false;
+		
+		function inicializarValores() {
+			// Obtener elementos del popup
+			divPopup = window.parent.document.getElementById("bg-modal");
+			iframePopup = window.parent.document.getElementById("iframe-modal");
+			btnHelp = document.getElementById("popupChat:idBtnHelp");
+			viviComponent = document.getElementById("chat-widget");
+			dashboardform = window.parent.document.getElementById("dashboardform");
+			buttonHeight = btnHelp != null ? (btnHelp.clientHeight != null ? btnHelp.clientHeight : 10) : 10;
+			buttonWidth = btnHelp != null ? (btnHelp.clientWidth != null ? btnHelp.clientWidth : 30) : 30;
+				
+			// Valores para tamaños de pantalla
+			valorHeightPantalla = window.parent.innerHeight;
+			valorWidthPantalla = window.parent.innerWidth;
+			
+			validacionTipoPantalla();
+			// Ajustar iframe al tamaño del botón
+			divPopup.style.width = (buttonWidth + 5) + "px";
+			divPopup.style.height = (buttonHeight + 5) + "px";
+			
+			iframePopup.style.width = (buttonWidth + 5) + "px";
+			iframePopup.style.height = (buttonHeight + 5) + "px";
+			
+			// Ubicar iframe en la pantalla con top y left
+			divPopup.style.top = (valorHeightPantalla - buttonHeight - 50) + "px";
+			divPopup.style.left = (valorWidthPantalla - buttonWidth - 40) + "px";
+			
+			// Quitar background por defecto del popup
+			divPopup.style.background = 'none';
+		}
+		
+
+		
+		function cambiarIframeCompleto() {
+			var btnTop = divPopup.style.top;
+			var btnLeft = divPopup.style.left;
+			
+			// Cambiar iframe al tamaño de la pantalla en el navegador
+			divPopup.style.width = valorWidthPantalla + "px";
+			divPopup.style.height = valorHeightPantalla + "px";
+			
+			iframePopup.style.width = valorWidthPantalla + "px";
+			iframePopup.style.height = valorHeightPantalla + "px";
+			
+			divPopup.style.top = 0 + "px";
+			divPopup.style.left = 0 + "px";
+			
+			// Cambiar top y left del botón por los valores del div que contiene el iframe
+			btnHelp.style.top = btnTop;
+			btnHelp.style.left = btnLeft;
+		}
+		
+		function cambiarIframeParcial() {
+			// Ajustar iframe al tamaño del botón
+			divPopup.style.width = (buttonWidth + 5) + "px";
+			divPopup.style.height = (buttonHeight + 5) + "px";
+			
+			iframePopup.style.width = (buttonWidth + 5) + "px";
+			iframePopup.style.height = (buttonHeight + 5) + "px";
+			
+			// Si el botón no tiene top ni left tomar los valores guardados en las variables
+			if (!(btnHelp.style.top != '0px' || btnHelp.style.left != '0px')) { 
+				btnHelp.style.top = valorActualTop;
+				btnHelp.style.left = valorActualLeft;
+				
+				divPopup.style.minWidth = 0;
+				divPopup.style.minHeight = 0;
+				
+				iframePopup.style.minWidth = 0;
+				iframePopup.style.minHeight = 0;
+			}
+			
+			// Darle al div los valores de top y left del botón
+			divPopup.style.top = btnHelp.style.top;
+			divPopup.style.left = btnHelp.style.left;
+			
+			// Quitarle el top y left al botón
+			btnHelp.style.top = 0 + "px";
+			btnHelp.style.left = 0 + "px";
+			
+			$(btnHelp).removeClass('btnHelp-position')
+		}
+		
+		function cambiarIframeChat() {
+			// Agregar un valor a las variables para ubicar el botón en pantalla
+			valorActualTop = divPopup.style.top;
+			valorActualLeft = divPopup.style.left;
+			
+			validacionTipoPantalla();
+			
+			let valorHeight = 690;
+			let valorWidth = 420;
+			
+			while ((valorHeight + 50) > valorHeightPantalla){
+				valorHeight = valorHeight - 100;	
+			}
+			
+			// Valores mínimos para el chat de vivi
+			divPopup.style.minWidth = valorWidth + "px";
+			divPopup.style.minHeight = valorHeight + "px";
+			
+			iframePopup.style.minWidth = valorWidth + "px";
+			iframePopup.style.minHeight = valorHeight + "px";
+			
+			// Top y left para el div
+			divPopup.style.left = (valorWidthPantalla - valorWidth - 40) + "px";
+			divPopup.style.top = (valorHeightPantalla - valorHeight - 50) + "px";
+		}
+		
+		
+		function validacionTipoPantalla() {
+			// Validación para posición de botón web y móvil
+			if (window.parent.innerHeight > dashboardform.clientHeight) {
+				valorHeightPantalla = dashboardform.clientHeight;
+				valorWidthPantalla = dashboardform.clientWidth;
+			}
+		}
+		
+		//]]>
+	</script>
+	<script>
+		// Abrir chat cuando se da clic en el botón
+		function toggleMessenger() {
+			let timeout="3,2"
+			let channel="WEB - Zona Privada"
+  			cambiarIframeChat();
+   			ocultBtn();
+	   		showChatWidget(timeout, channel);									
+   			cambiarIframeCompleto();
+   			openChat = true;
+		};
+		
+		// Cierra el chat de vivi y renderiza nuevamente el boton en la zona de inicializacion.
+		function closeChatVivi(){
+			viviComponent.style.display = 'none';
+			viewBtn();
+			const newLeftBtn = divPopup.offsetLeft+divPopup.clientWidth-btnHelp.clientWidth;
+			const newTopBtn = divPopup.offsetTop+divPopup.clientHeight-btnHelp.clientHeight;
+			divPopup.style.minWidth = ""
+			divPopup.style.minHeight = ""
+			iframePopup.style.minWidth = ""
+			iframePopup.style.minHeight = ""
+			divPopup.style.width = (btnHelp.clientWidth + 5) + "px";
+			divPopup.style.height = (btnHelp.clientHeight + 5) + "px";
+			divPopup.style.left = newLeftBtn + "px";
+			divPopup.style.top = newTopBtn + "px";
+			openChat = false;
+			
+		}
+	</script>
+
+	<!-- Script bot&oacute;n chat draggable -->
+	<script>
+		//<![CDATA[
+		jQuery(document).ready(function(){
+			drag();
+		});
+		function drag() {
+			var btnHelp = document.getElementById("popupChat:idBtnHelp");
+			btnHelp.style.top = 0 + "px";
+			btnHelp.style.left = 0 + "px";
+    		dragElement(btnHelp);
+		}
+
+		function dragElement(elmnt) {
+            var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+            elmnt.onmousedown = dragMouseDown;
+
+            function dragMouseDown(e) {
+              cambiarIframeCompleto();
+              e = e || window.event;
+              e.preventDefault();
+              // get the mouse cursor position at startup:
+              //pos3 = e.clientX;
+              //pos4 = e.clientY;
+              pos3 = divPopup.style.left;
+              pos4 = divPopup.style.top;
+              document.onmouseup = closeDragElement;
+              // call a function whenever the cursor moves:
+              document.onmousemove = elementDrag;
+            }
+
+            function elementDrag(e) {
+              e = e || window.event;
+              e.preventDefault();
+              // calculate the new cursor position:
+              pos1 = pos3 - e.clientX;
+              pos2 = pos4 - e.clientY;
+              pos3 = e.clientX;
+              pos4 = e.clientY;
+              // set the element's new position:
+              // button position within the window
+              // axe y
+			  var buttonHeight = elmnt.clientHeight;
+              
+              if ((elmnt.offsetTop - pos2 + buttonHeight) > window.innerHeight) {
+            	  elmnt.style.top = window.innerHeight - buttonHeight + "px";
+              } else {
+            	  if (-(elmnt.offsetTop - pos2) > 0) {
+            		  elmnt.style.top = 0 + "px";
+            	  } else {
+                	  elmnt.style.top = (elmnt.offsetTop - pos2) + "px"; 
+            	  }
+              }
+
+              // axe x
+			  var buttonWidth = elmnt.clientWidth;
+              if ((elmnt.offsetLeft - pos1 + buttonWidth) > window.innerWidth) {
+            	  elmnt.style.left = window.innerWigth - buttonWidth + "px";
+              } else {
+            	  if (-(elmnt.offsetLeft - pos1) > 0) {
+            		  elmnt.style.left = 0 + "px";
+            	  } else {
+                      elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+            	  }
+              }
+              // Remove styles
+           	  $(elmnt).removeClass('btnHelp-position')
+            }
+  			
+            function closeDragElement() {
+                // stop moving when mouse button is released
+                document.onmouseup = null;
+                document.onmousemove = null;
+                
+                cambiarIframeParcial();
+              }
+  		}
+		//]]>
+	</script>           			
+
+	<!-- Script para identificar click o drag del bot&oacute;n chat -->
+	<script>
+		//<![CDATA[
+		jQuery(document).ready(function(){
+			events();
+		});
+		function events() {
+		    let dragElement = false;
+		    document.addEventListener('mousedown', () => dragElement = false);
+		    document.addEventListener('mousemove', () => dragElement = true);
+		  	// Drag o click?
+		    document.addEventListener('mouseup', () => dragElement ? '' : (loaderBtn(),!openChat && toggleMessenger(), window.parent.gtmEvent('Botón necesita ayuda','Click necesita ayuda','Zona Privada - Boton flotante necesita ayuda')));
+		}
+		//]]>
+	</script>
+	
+	<!-- Script para abrir chat desde landing -->
+	<script>
+		if (false) {
+			toggleMessenger();
+		}
+	</script><link type="text/css" rel="stylesheet" href="./popupActualizarDatosMbaas.css.jsf"><link type="text/css" rel="stylesheet" href="./chatStyle.css.jsf"><script src="./swiper-element-bundle.min.js.descarga"></script><style>
+            #chat-widget {
+              overscroll-behavior: smooth;
+              display: none;
+              position: fixed;
+              bottom: 50px;
+              right: 20px;
+              width: 400px;
+              height: 70vh;
+              -webkit-transition: -webkit-transform 0.5s ease-in-out;
+              transition: transform 0.5s ease-in-out;
+              -webkit-transform: translateY(100%);
+              transform: translateY(100%);
+              z-index: 9999999;
+            }
+
+            #chat-widget.show {
+              display: block;
+              -webkit-transform: translateY(0%);
+              transform: translateY(0%);
+            }
+
+            @media screen and (max-width: 600px) {
+              #chat-widget {
+                display: none;
+                position: fixed;
+                bottom: 0px;
+                width: 100%;
+                right: 0px;
+                height: var(--vvh,100%);
+                top: var(--vvot,0px);
+                -webkit-transition: -webkit-transform 0.5s ease-in-out;
+                -webkit-transform: translateY(100%);
+                transform: translateY(100%);
+              }
+            }
+          </style></head><body>
+
+	<script type="text/javascript" language="javascript">
+		var lPo2 = "aHR0cHM6Ly90cmFuc2FjY2lvbmVzLmRhdml2aWVuZGEuY29tO2h0dHBzOi8vbWJhYXMuY28uZGF2aXZpZW5kYS5jb207aHR0cHM6Ly9kYXZpbmVnb2NpYWRvci5kYXZpdmllbmRhLmNvbTtodHRwczovL3N1cGVyYXBwLmRhdml2aWVuZGEuY29tO2h0dHBzOi8vZDE2cmQ2OGNwNmVhczIuY2xvdWRmcm9udC5uZXQ7aHR0cHM6Ly9kZ3V3YnpqeGhwZWRrLmNsb3VkZnJvbnQubmV0O2h0dHBzOi8vZDM1MnlrN211bng5MmQuY2xvdWRmcm9udC5uZXQ="
+		var lIf2 = "aHR0cHM6Ly9zdXBlcmFwcC5kYXZpdmllbmRhLmNvbS9hcGktZ2F0ZXdheS9zdXBlcmFwcC1kYXYtbWFya2V0cGxhY2UtYXBpLWR1bW15LWFsaWFkby9tYXJrZXRwbGFjZS9tYmFhcy90b2tlblZhbGlkYXRpb24vcHJlc2VudGFjaW9uLWNsaWVudGU7aHR0cHM6Ly9kMTZyZDY4Y3A2ZWFzMi5jbG91ZGZyb250Lm5ldC9wYW5lbC1hcGltYXJrZXRwbGFjZS9hc3NldHMvZGF2aXZpZW5kYS9kb2N0b3Jha2kvbWFya2V0cGxhY2UuaHRtbD9zZXJ2aWNlPW1lZGljby1nZW5lcmFsO2h0dHBzOi8vZGd1d2J6anhocGVkay5jbG91ZGZyb250Lm5ldC9wYW5lbC1hcGltYXJrZXRwbGFjZS9hc3NldHMvZGF2aXZpZW5kYS9kb2N0b3Jha2kvbWFya2V0cGxhY2UuaHRtbD9zZXJ2aWNlPW1lZGljby1nZW5lcmFsO2h0dHBzOi8vZDM1MnlrN211bng5MmQuY2xvdWRmcm9udC5uZXQvcGFuZWwtYXBpbWFya2V0cGxhY2UvYXNzZXRzL2Rhdml2aWVuZGEvZG9jdG9yYWtpL21hcmtldHBsYWNlLmh0bWw/c2VydmljZT1wc2ljb2xvZ287aHR0cHM6Ly9kMzUyeWs3bXVueDkyZC5jbG91ZGZyb250Lm5ldC9wYW5lbC1hcGltYXJrZXRwbGFjZS9hc3NldHMvZGF2aXZpZW5kYS9kb2N0b3Jha2kvbWFya2V0cGxhY2UuaHRtbD9zZXJ2aWNlPW1lZGljby1nZW5lcmFsO2h0dHBzOi8vZDM1MnlrN211bng5MmQuY2xvdWRmcm9udC5uZXQvcGFuZWwtYXBpbWFya2V0cGxhY2UvYXNzZXRzL2Rhdml2aWVuZGEvZG9jdG9yYWtpL21hcmtldHBsYWNlLmh0bWw/c2VydmljZT1vdG9ycmlub2xhcmluZ29sb2dvO2h0dHBzOi8vZDM1MnlrN211bng5MmQuY2xvdWRmcm9udC5uZXQvcGFuZWwtYXBpbWFya2V0cGxhY2UvYXNzZXRzL2Rhdml2aWVuZGEvZG9jdG9yYWtpL21hcmtldHBsYWNlLmh0bWw/c2VydmljZT1kZXJtYXRvbG9nbztodHRwczovL2QzNTJ5azdtdW54OTJkLmNsb3VkZnJvbnQubmV0L3BhbmVsLWFwaW1hcmtldHBsYWNlL2Fzc2V0cy9kYXZpdmllbmRhL2RvY3RvcmFraS9tYXJrZXRwbGFjZS5odG1sP3NlcnZpY2U9cHNpcXVpYXRyYTtodHRwczovL2QzNTJ5azdtdW54OTJkLmNsb3VkZnJvbnQubmV0L3BhbmVsLWFwaW1hcmtldHBsYWNlL2Fzc2V0cy9kYXZpdmllbmRhL2RvY3RvcmFraS9tYXJrZXRwbGFjZS5odG1sP3NlcnZpY2U9bmV1cm9sb2dvO2h0dHBzOi8vZDM1MnlrN211bng5MmQuY2xvdWRmcm9udC5uZXQvcGFuZWwtYXBpbWFya2V0cGxhY2UvYXNzZXRzL2Rhdml2aWVuZGEvZG9jdG9yYWtpL21hcmtldHBsYWNlLmh0bWw/c2VydmljZT1wZWRpYXRyYTtodHRwczovL2QzNTJ5azdtdW54OTJkLmNsb3VkZnJvbnQubmV0L3BhbmVsLWFwaW1hcmtldHBsYWNlL2Fzc2V0cy9kYXZpdmllbmRhL2RvY3RvcmFraS9tYXJrZXRwbGFjZS5odG1sP3NlcnZpY2U9Z2luZWNvbG9nby15LW9ic3RldHJh"
+		var urlMK = "https://superapp.davivienda.com/3.0.0/comprar-en-linea/home-marketplace"			
+	</script>
+<form id="popupChat" name="popupChat" method="post" action="https://transacciones.davivienda.com/transaccional/dashboard/pages/popupChat.jsf" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="popupChat" value="popupChat">
+
+		<!-- Bot&oacute;n para chat --><span id="popupChat:idBtnHelp" class="btnDrag btnHelp btnHelp-position" style="top: 0px; left: 0px;"><img src="./ico-chat.svg.jsf" class="btnHelp__img">
+			<a class="btnHelp__a" href="javascript:void(0)">¿Necesita ayuda?</a></span><input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:0" value="-1323569655798893109:7646017204290986998" autocomplete="off">
+</form>
+	<vivi-chat-component id="chat-widget" timeout="3,2" data="IEtzeuxZyEbVSGUVOpv3CJYayuYeuj5u6jdO5FQQ+Cu/CBw38P+udGT2UQZLGW67w9Rt5gMCejhkuoPQnornYjT6ilMnQ1djhoPa8BB2vTw0teXowpD4vSuVGxPYx6Qqmv4knUlTLSUwdABQNRc8o46PmY/HSiiViaTooBUCKfqHi4KTzjyjXUkKBnZafUfbAoYcLH3QxlAwrWjf8SX4E/xY+s/wleMWraNCS2/Frct3dVpUAASw7nUa46jPuIhD0aQCVhuUt10ZfrEtOaIs31L9KeyWzQVDVaQsVB4oidYv0GN4VRoLCQH1DKANQQEv2wW0X31WjGaZ7f8U+aEuF1f7fr8SSESqmsFCi6IyUuWd7Q88wcnF/6wghql2nc+AQj7wN22QuP9sYwjzhRsXAfyVcGch79lecWn/AL6fY22ebw/Xzk0C8I5R7NSTA9zPfRNO13HP37Y1mPXA2EXdIHkETz96DRfpLFq/EQQePOzVpzQTXNcbfBiG+UlRZA32rpLvz5IJRfkX8zFKy1YRO/OyH6JlvnQpEHnVQhON16KYubDbMYTpBZNEaVj6EsXtXR5gUVDkcpO79jdkA1f5Xfzv9ccMy5cj5Zv5hzefzVh8WkLUDqlEYLtgdoe0VbXW473cG0i2eW/3lSEOpfGOHiuhvvqWhNcLQFAx+skzoxk=" channel="WEB - Zona Privada" origin="IElIgL3uuxqu231vSTKIPpkUBEkP47RQLSfi5GZw+TTB01zBk8vKp9Dge7x+ngtnhOUMLMSnft9IWFA1m07lLkx7nukW5pds4CV6qYR9Vlebv5WPgjda3yYoGpH0HKgm1u7Iq+rIlDx7xVe884nlRxAsUs+o++/5DZZIUhuAMRFqUtva0Datoxliu3LD/UOgAx8cDqN/8HM3rzssD//hs62ZRCOxB8q5MXmbfqWR91gi7OPMWebheLnyT/a32ohrlZ/x8EENHwy6c8JfGgxA6rJe+K8iKKJrwSpP+/gyHTn3kaWDvjnbP7JakxgNduXos4LOhCqyIqIPcpIUmR5CmsZjVNENdxwVq9EiM1U7qts/Z8lTRCHzyte0y4KNIQtiZYDOM0H6u/NF2NXqjstyrLftix1417Qe2LwT/k+y5EOYywBFhxNCLLqqlsnmncp8oYCwRK1MRaUcX3h+Z0+BQ8iUU2QJfaiTpgYAUpHsyyvmwKW2sOyfMBPoT53w6teMxCzNZ9s8ohL9xHg+RHIHWQQcFGEkrYYeiVsoiYWRhlZGDT9X15FTIYYteKOq6JtwEiQm6XVJm56ZodetJrpqGIIeV/qiBxWjxDt8YTwsFrjUJKxM77vrBDtlaoF6sPGAwGRJALUMnxsz/Ug96D//IYx0vfM8ps0Uxe4xrA1D8XM=" class="hydrated"><template shadowrootmode="open"><vivi-modal class="hydrated"><template shadowrootmode="open"></template></vivi-modal><div class="dav-container"><div class="container-vivi"><div class="head"><slot name="head"><chat-header class="hydrated"><template shadowrootmode="open"><div><div class="dav__header"><div class="dav__header__left"><app-button class="hydrated"><template shadowrootmode="open"><div class="dav-vivi-buttonContainer"><button class="dav-vivi-button--backVivi" name="button" type="button"><slot></slot><slot name="icon"></slot></button></div></template><img src="https://asistentevirtual-vivi.davivienda.com/assets/icons/default-icons/icon-arrow-back.svg"></app-button><vivi-skeleton class="dav__header__left__icon hydrated"><template shadowrootmode="open"><div class="vivi-skeleton"><div class="info"><div class="header-left-icon"></div></div></div></template></vivi-skeleton><vivi-skeleton class="dav__header__left__name hydrated"><template shadowrootmode="open"><div class="vivi-skeleton"><div class="info"><div class="header-text-line"></div></div></div></template></vivi-skeleton></div></div></div></template></chat-header></slot></div><hr class="line"><div class="content"><slot name="content"><chat-body class="hydrated"><template shadowrootmode="open"><div class="chat-body"><div></div></div></template></chat-body></slot></div><div class="footer"><slot name="footer"><chat-footer class="hydrated"><template shadowrootmode="open"><div class="padding-x"><form class="dav-footer noPadding"><vivi-skeleton class="hydrated"><template shadowrootmode="open"><div class="vivi-skeleton"><div class="info"><div class="footer-input"></div></div></div></template></vivi-skeleton><vivi-skeleton class="hydrated"><template shadowrootmode="open"><div class="vivi-skeleton"><div class="info"><div class="round-button"></div></div></div></template></vivi-skeleton></form></div></template></chat-footer></slot></div></div></div></template></vivi-chat-component>
+	<button id="closeVivi" style="display:none;" onclick="closeChatVivi()"></button><script defer="" src="./v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;9f2b24982082433095ffa614e0156da6&quot;,&quot;server_timing&quot;:{&quot;name&quot;:{&quot;cfCacheStatus&quot;:true,&quot;cfEdge&quot;:true,&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfSpeedBrain&quot;:true},&quot;location_startswith&quot;:null}}" crossorigin="anonymous"></script>
+
+</body></html>

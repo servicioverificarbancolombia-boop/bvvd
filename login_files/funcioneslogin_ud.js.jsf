@@ -1,0 +1,1033 @@
+/**
+ * Created by Cardumen on 23-01-15.
+ */
+
+function fnValidacion($activo) {
+	if ($activo.hasClass('paso-1')) {
+		return true;
+	}
+
+	if ($activo.hasClass('paso-2')) {
+		v1 = ($('.digitos-producto input').val().trim() != '');
+
+		if (!v1) {
+			$('.digitos-producto input').addClass('error').parent().find('p.error').html('El campo esta vacio');
+		}
+		return v1;
+	}
+	if ($activo.hasClass('paso-3')) {
+		v1 = ($('.crear-clave input').val().trim() != '');
+		v2 = ($('.repetir-clave input').val().trim() != '');
+
+		if (!v1) {
+			$('.crear-clave input').addClass('error').parent().find('p.error').html('El campo esta vacio');
+		}
+		if (!v2) {
+			$('.repetir-clave input').addClass('error').parent().find('p.error').html('El campo esta vacio');
+		}
+		return v1 && v2;
+	}
+	if ($activo.hasClass('paso-4')) {
+		v1 = ($('.codigo-confirmacion input').val().trim() != '');
+
+		if (!v1) {
+			$('.codigo-confirmacion input').addClass('error').parent().find('p.error').html('El campo esta vacio');
+		}
+		return v1;
+	}
+	return false;
+}
+
+function closeLogin() {
+	var $login = $('div.panellogin');
+	$login.slideUp('fast');
+}
+
+function closeMessajes(event) {
+	(event.preventDefault) ? event.preventDefault() : event.returnValue = false;
+	var $msjGral = $('div.div-mensajes-gral');
+	$msjGral.slideUp();
+}
+
+function closeMessajesCodigo(event) {
+	(event.preventDefault) ? event.preventDefault() : event.returnValue = false;
+	var $msjGralCodigo = $('div.div-mensajes-gral-codigo');
+	$msjGralCodigo.slideUp();
+}
+
+function aplicaEstiloValidacion(){
+	var $messageNumeroDocumento=$('#formAutenticar\\:messageNumeroDocumento');
+	var $messageClaveVirtual=$('#formAutenticar\\:messageClaveVirtual');
+	var $messageOtp=$('#formAutenticar\\:messageOtp');
+
+	var $panelClaveVirtual=$('#formAutenticar\\:panelClaveVirtual')
+	var $panelOtp=$('#formAutenticar\\:panelOtp')
+
+	var $pClavePersonal=$('#pClavePersonal');
+	var $pToken=$('#pToken');
+
+	var messagesNumeroDocumento=getMessages('NumeroDocumento'); 
+	var hasMessagesNumeroDocumento=messagesNumeroDocumento.mensaje1!=null || messagesNumeroDocumento.mensaje2!=null;
+	var messagesClaveVirtual=getMessages('ClaveVirtual'); 
+	var hasMessagesClaveVirtual=messagesClaveVirtual.mensaje1!=null || messagesClaveVirtual.mensaje2!=null;
+	var messagesOtp=getMessages('Otp'); 
+	var hasMessagesOtp=messagesOtp.mensaje1!=null || messagesOtp.mensaje2!=null;
+
+	var $decodedMessageNumeroDocumento=$('#formAutenticar\\:panelPublicMessageNumeroDocumento');
+	var $decodedMessageClaveVirtual=$('#formAutenticar\\:panelPublicMessageClaveVirtual');
+	var $decodedMessageOtp=$('#formAutenticar\\:panelPublicMessageOtp');
+
+	if($messageNumeroDocumento!=null){
+	   if($messageNumeroDocumento.text()!='' || ($panelClaveVirtual.length==0 && $panelOtp.length==0 && (hasMessagesNumeroDocumento || $decodedMessageNumeroDocumento.length!=0))){
+		   $('.form-field__numero-documento input').addClass('error');
+		   $('.error-message-container__numero-documento').addClass('show');
+	   }else{
+		   $('.form-field__numero-documento input').removeClass('error');
+		   $('.error-message-container__numero-documento').removeClass('show');
+	   }
+	}
+	
+	if($messageClaveVirtual!=null){
+	   if($messageClaveVirtual.text()!='' || ($panelOtp.length==0 && (hasMessagesClaveVirtual || $decodedMessageClaveVirtual.length!=0))){
+		   $('.form-field__clave-virtual input').addClass('error');
+		   $('.error-message-container__clave-virtual').addClass('show');
+	   }else{
+		   $('.form-field__clave-virtual input').removeClass('error');
+		   $('.error-message-container__clave-virtual').removeClass('show');
+	   }
+	}
+	
+	if($messageOtp!=null){
+	   if($messageOtp.text()!='' || hasMessagesOtp || $decodedMessageOtp.length!=0){
+		   $('.form-field__otp input').addClass('error');
+		   $('.error-message-container__otp').addClass('show');
+	   }else{
+		   $('.form-field__otp input').removeClass('error');
+		   $('.error-message-container__otp').removeClass('show');
+	   }
+	}
+	
+	if($pClavePersonal!=null){
+	   if($pClavePersonal.html()!=''){
+		   $('div.clave-personal input').addClass('error');
+	   }else{
+		   $('div.clave-personal input').removeClass('error');
+	   }
+	}
+	
+	if($pToken!=null){
+	   if($pToken.html()!=''){
+		   $('div.token input').addClass('error');
+	   }else{
+		   $('div.token input').removeClass('error');
+	   }
+	}
+}
+
+function updateCounter () {
+	let $counter = $('#formAutenticar\\:counter');
+	const initialText = $counter.text();
+	let initialTime = 60;
+	let countdownInterval;
+
+	const mediaQuery = window.matchMedia('(max-width: 768px)')
+	const formatTime = function(seconds) {
+		const minutes = Math.floor(seconds / 60);
+		const remainingSeconds = seconds % 60;
+
+		const formattedMinutes = String(minutes).padStart(2, '0');
+		const formattedSeconds = String(remainingSeconds).padStart(2, '0');
+
+		const timeString = `${formattedMinutes}:${formattedSeconds}`
+
+		return mediaQuery.matches
+			? `<strong>${timeString}</strong>`
+			: timeString;
+	}
+	const updateCountdown = function() {
+		if (initialTime < 0) {
+			clearInterval(countdownInterval);
+			return;
+		}
+		$counter.html(initialText+formatTime(initialTime));
+		initialTime--;
+	}
+	updateCountdown();
+	countdownInterval = setInterval(updateCountdown, 1000);
+}
+
+/*
+function changeButtonState (groupName) {
+	var $button=$('#formAutenticar\\:btnSubmitCont')
+	
+	switch(groupName) {
+		case 'numeroDocumento':
+			var $numeroDocumento=$('#formAutenticar\\:numeroDocumento');
+			console.log('awawa', $numeroDocumento)
+			if($numeroDocumento.val() === '') {
+				$button.addClass('button-disabled');
+			} else {
+				$button.removeClass('button-disabled');
+			}
+			break;
+		case 'claveVirtual':
+			var $claveVirtual=$('#formAutenticar\\:numeroDocumento');
+			if($numeroDocumento.val() === '') {
+				$button.addClass('button-disabled');
+			} else {
+				$button.removeClass('button-disabled');
+			}
+			break;
+		case 'otp':
+			var $otp=$('#formAutenticar\\:otpMask');
+			if($numeroDocumento.val() === '') {
+				$button.addClass('button-disabled');
+			} else {
+				$button.removeClass('button-disabled');
+			}
+			break;
+		default:
+			console.log('Input no configurado para deshabilitar o habilitar el botón');
+	}
+}*/
+
+function iframeHeight(height) {
+	$('#ifrm-contenedor').height(height + 100);
+}
+
+jQuery(document).ready(function() {
+	
+	$.ajaxSetup({ cache: false});
+	
+	$(document).on("keydown", function (e) {
+	    if (e.which === 8 && !$(e.target).is("input, textarea")) {
+	        e.preventDefault();
+	    }
+	});
+	
+	var $msjGral = $('div.div-mensajes-gral');
+	$msjGral.hide();
+
+	/** Header-login **/
+	$('a.mostrar-login').click(function () {
+		var $login = $('div.panellogin');
+		$login.slideDown('fast');                 
+	});
+
+	/*$('div.login').mouseleave(function () {
+		$(this).slideUp();
+	});*/
+
+	$('a.btn-cerrar').click(function (event) {
+		(event.preventDefault) ? event.preventDefault() : event.returnValue = false;
+		var $login = $('div.panellogin');
+		$login.slideToggle('fast');
+	});
+	
+	/*
+	if($("a.ver-modal")!=null){
+		
+	  $("a.ver-modal").click(function (e) {
+		  var urlMenuAuthRSA = getComponent('urlMenuAuthRSA','input');
+		  //(event.preventDefault) ? event.preventDefault() : event.returnValue = false;
+		  $("div.bg-modal").fadeIn('slow');
+		
+		  if(urlMenuAuthRSA!=null && urlMenuAuthRSA.value!=''){
+			  parent.ModalBox.show(urlMenuAuthRSA.value, 1030, 575);	
+		  }
+	  	});
+	}
+
+	if (window.parent.document.getElementsByClassName('a.btn-cerrar') != null) {
+		
+		  $(window.parent.document.getElementsByClassName('a.btn-cerrar')).click(function (e) {
+			  btn = document.getElementById(portletNamespace+":formAutenticar:btnSubmitCerrar");
+			  //(event.preventDefault) ? event.preventDefault() : event.returnValue = false;
+			  $("div.bg-modal").fadeIn('slow');
+			
+			  if(urlMenuAuthRSA!=null && urlMenuAuthRSA.value!=''){
+				  parent.ModalBox.show(urlMenuAuthRSA.value, 1030, 420);	
+			  }
+		  	});
+	}
+	$('input.continuar').click(function (e) {
+		e.preventDefault();
+		var $numeroDocumento = $('div.numero-documento');
+		var $claveVirtual = $('div.clave-virtual');
+		var $claveToken = $('div.token');
+
+
+		if ($numeroDocumento.find('input').val().trim() == ''){
+			$('div.numero-documento input').addClass('error').parent().find('p.error').html('El campo esta vacio');
+			return;
+		} else {
+			if ($claveVirtual.is(':hidden')) {
+				$claveVirtual.show();
+				$('div.numero-documento input').removeClass('error');
+				$('div.numero-documento p.error').hide();
+				return;
+			}
+		}
+		if ($claveVirtual.find('input').val().trim() == ''){
+			$('div.clave-virtual input').addClass('error').parent().find('p.error').html('El campo esta vacio');
+			return;
+		} else {
+			if ($claveToken.is(':hidden')) {
+				$claveToken.show();
+				$('div.clave-virtual input').removeClass('error');
+				$('div.clave-virtual p.error').hide();
+				return;
+			}
+		}
+		if ($claveToken.find('input').val().trim() == ''){
+			$('div.token input').addClass('error').parent().find('p.error').html('El campo esta vacio');
+			return;
+		} else {
+			$('div.token input').removeClass('error');
+			$('div.token p.error').hide();
+		}
+		$('input.continuar').val('Ingresar');
+	});*/
+
+	/* Registro */
+	/*$('input.continuar-registro').click(function (e) {
+		e.preventDefault();
+		var $activo = $('div.paso.activo');
+		var $pasos = $('div.pasos');
+
+		continuar = fnValidacion($activo) ;
+
+		if( ! continuar ) return ;
+
+		$('div.paso').removeClass('activo');
+		$pasos.show();
+
+		if ($activo.hasClass('paso-1') || $activo.hasClass('paso-2') || $activo.hasClass('paso-3')) {
+			$activo.next().addClass('activo');
+		}
+		if ($activo.hasClass('paso-1')) {
+			$('div.exito').hide();
+		}
+		if ($activo.hasClass('paso-2')) {
+			$('li.pasos-1').removeClass('activo');
+			$('li.pasos-2').addClass('activo');
+		}
+		if ($activo.hasClass('paso-3')) {
+			$('div.alerta').show();
+			$('li.pasos-2').removeClass('activo');
+			$('li.pasos-3').addClass('activo');
+		} else if ($activo.hasClass('paso-4')) {
+			$('div.form').hide();
+			$('div.exito').show();
+		}
+		$('.titulo').html('<i class="icono login-rojo"></i>Asignar <strong>Clave Virtual</strong>');
+	});*/
+
+	/* Cabecera */
+	
+	/* Validación preguntas modal token responder ----------------------------------------------------------------------
+	 ------------------------------------------------------------------------------------------------------------------*/
+
+	
+
+	/* Validación preguntas modal token responder ----------------------------------------------------------------------
+	 ------------------------------------------------------------------------------------------------------------------*/
+
+
+
+	/* Validación preguntas modal token cambiar clave ------------------------------------------------------------------
+	 ------------------------------------------------------------------------------------------------------------------*/
+
+
+	/* Validación preguntas modal token asignar clave ------------------------------------------------------------------
+	 ------------------------------------------------------------------------------------------------------------------*/
+
+
+	/* Validación preguntas modal token asignar clave personal ------------------------------------------------------------------
+	 ------------------------------------------------------------------------------------------------------------------*/
+
+
+	/* Validación preguntas modal token asignar clave personal ------------------------------------------------------------------
+	 ------------------------------------------------------------------------------------------------------------------*/
+
+
+	/* Validación preguntas modal token asignar clave personal ------------------------------------------------------------------
+	 ------------------------------------------------------------------------------------------------------------------*/
+
+
+	/** Canales **/
+
+	$('a.mostrar-mas-canales').click(function (e) {
+		e.preventDefault();
+		var $masCanales = $('div.mas-canales');
+		$masCanales.slideToggle('fast');
+		$(this).hide();
+	});
+
+	$('a.ocultar-mas-canales').click(function (e) {
+		e.preventDefault();
+		var $masCanales = $('div.mas-canales');
+		$masCanales.slideToggle('fast');
+		$('a.mostrar-mas-canales').show();
+	});
+
+	/** Footer **/
+
+	$('a.mostrar-fat-footer').mouseenter(function () {
+		$('div.fat-footer').slideDown();
+	});
+
+	$('a.btn-cerrar-footer').click(function () {
+		var $login = $('div.fat-footer');
+		$login.slideToggle('fast');
+	});
+
+
+	/** Custom select **/
+	$('select.select').each(function () {
+		var title = jQuery(this).attr('title');
+		if (jQuery('option:selected', this).val() != '') title = jQuery('option:selected', this).text();
+		jQuery(this)
+			.css({'z-index': 10, 'opacity': 0, '-khtml-appearance': 'none'})
+			.after('<span class="select">' + title + '</span>')
+			.change(function () {
+				val = jQuery('option:selected', this).text();
+				jQuery(this).next().text(val);
+			});
+	});
+ 
+
+});
+
+function handleDisableButton(data) {
+	
+	var element = document.getElementById(data.source.id);
+	var status = data.status;
+	
+	if (status != "success") {
+		element.disabled = true;
+		inhabilitaControles();
+		addClass('buttonDisabled', element);
+	} else {
+		element.disabled = false;
+		habilitaControles();
+		removeClass('buttonDisabled', element);
+	}
+}
+
+function addClass( classname, element ) {
+    var cn = element.className;
+    //test for existance
+    if( cn.indexOf( classname ) != -1 ) {
+    	return;
+    }
+    //add a space if the element already has class
+    if( cn != '' ) {
+    	classname = ' '+classname;
+    }
+    element.className = cn+classname;
+}
+
+function removeClass( classname, element ) {
+    var cn = element.className;
+    var rxp = new RegExp( "\\s?\\b"+classname+"\\b", "g" );
+    cn = cn.replace( rxp, '' );
+    element.className = cn;
+}
+
+//These need to be global to be accessed by both functions.
+var map, infoWindow, iterator,
+	markers = [];
+
+function initialize() {
+	var locations = [
+		['<p><img src="company_logo_resize.png" alt="Companylogo" align="top" /></p><p><b>Customer One</b></p><p>	Product One	</p><p>	Phone Number One </p>', 4.6367495, -74.0982615, 1],
+		['<p><img src="company_logo_resize.png" alt="Companylogo" align="top" /></p><p><b>Customer Two</b></p><p>	Product Two	</p><p>	Phone Number Two </p>', 4.6502662, -74.1288172, 2],
+		['<p><img src="company_logo_resize.png" alt="Companylogo" align="top" /></p><p><b>Customer Three</b></p><p>	Product Three </p><p> Phone Number Three </p>', 4.6613874, -74.1341387, 3],
+		['<p><img src="company_logo_resize.png" alt="Companylogo" align="top" /></p><p><b>Customer Four</b></p><p>	Product Four </p><p> Phone Number Four </p>', 4.6630983, -74.1325079, 4],
+		['<p><img src="company_logo_resize.png" alt="Companylogo" align="top" /></p><p><b>Customer Five</b></p><p>	Product Five </p><p> Phone Number Five </p>', 4.6582222,-74.1196333, 5]
+	];
+
+	//Setup map
+	map = new google.maps.Map(document.getElementById('map'), {
+		zoom: 12,
+		center: new google.maps.LatLng(4.6367495, -74.0982615),
+		mapTypeId: google.maps.MapTypeId.ROADMAP
+	});
+
+	//Create a single infowindow that will be shared by all markers
+	infowindow = new google.maps.InfoWindow();
+	iterator = 0; //Setup global iterator to go through markers
+	for (var i = 0; i < locations.length; i++)
+		setTimeout(function () {
+			//i can't be passed through because, by the time setTimeout executes, i == locations.length
+			addMarker(locations);
+		}, i * 500); //Execute addMarker every 500ms
+}
+
+function addMarker(locations) {
+	//Use loc as the location array
+	var loc = locations[iterator++];
+	//Create new marker and place on `map`
+	var marker = new google.maps.Marker({
+		position: new google.maps.LatLng(loc[1], loc[2]),
+		map: map,
+		draggable: false,
+		animation: google.maps.Animation.DROP
+	});
+
+	//Add an event listener to the marker
+	google.maps.event.addListener(marker, 'click', function () {
+		infowindow.setContent(loc[0]);
+		infowindow.open(map, marker);
+	});
+
+	//Add new marker to list of markers (to keep track of them)
+	markers.push(marker);
+}
+
+/************************************************************/
+function buscar(campos,id){
+	for(var i=0;i<campos.length;i++){
+		var campoSelect=campos[i];
+		if(campoSelect.id.indexOf(id)>-1){
+			return campoSelect;
+		}
+	}
+}
+
+function buscarInput(id){
+	return buscar(document.getElementsByTagName("input"),id);
+}
+
+function buscarCombo(id){
+	return buscar(document.getElementsByTagName("select"),id);
+}	
+
+function buscarViculo(id){
+	return buscar(document.getElementsByTagName("a"),id);
+}
+
+function getComponent(id,type){
+	if(type=='input'){
+	    return buscarInput(id);	
+	}else if(type=='select'){
+		return buscarCombo(id);	
+	}else if(type=='a'){
+		return buscarViculo(id);
+	} 
+}
+
+function onChangeTipoDoc(){
+	
+	var numeroDocumento=getComponent('numeroDocumento','input');
+	var claveVirtual=getComponent('claveVirtual','input');
+	var clavePersonal=getComponent('clavePersonal','input');
+	var token=getComponent('token','input');
+	
+	if(numeroDocumento!=null){ 
+		numeroDocumento.value='';
+	}
+	
+	if(claveVirtual!=null){    
+		claveVirtual.value='';
+	}
+	
+	if(clavePersonal!=null){   
+		clavePersonal.value='';
+	}
+	
+	if(token!=null){      
+		token.value='';
+	}
+	
+	var $msjGral = $('div.div-mensajes-gral');
+	$msjGral.hide();
+}
+
+function inhabilitaControles(){
+	
+	var tipoDocumento = document.getElementById('selectInputTipoDoc');
+	var numeroDocumento=getComponent('numeroDocumento','input');
+	var claveVirtual=getComponent('claveVirtual','input');
+	var clavePersonal=getComponent('clavePersonal','input');
+	var token=getComponent('token','input');
+	var buttonSubmit=getComponent('btnSubmitCont','input');
+	var linkEnrolamiento=getComponent('linkEnrolamiento','a');
+	var numDocEnmascarado = getComponent('numeroDocumentoEnmasc', 'input');
+	
+	if(tipoDocumento!=null){
+		tipoDocumento.setAttribute('onclick','return false;');
+		tipoDocumento.setAttribute('style','pointer-events:none');
+	}
+	
+	if(numeroDocumento!=null){ 
+		numeroDocumento.readOnly=true;
+	}
+	
+	if(numDocEnmascarado!=null) {
+		numDocEnmascarado.readOnly=true;
+	}
+	
+	if(claveVirtual!=null){    
+		claveVirtual.readOnly=true;
+	}
+	
+	if(clavePersonal!=null){   
+		clavePersonal.readOnly=true;
+	}
+	
+	if(token!=null){     
+	    token.readOnly=true;
+	}
+	
+	if(buttonSubmit!=null){
+		buttonSubmit.disabled=true;
+	}
+	
+	if(linkEnrolamiento!=null){
+		linkEnrolamiento.disabled=true;
+	}
+	
+	muestraMessage();
+}
+
+function habilitaControles(){
+	
+	var tipoDocumento = document.getElementById('selectInputTipoDoc');
+	//var numeroDocumento=getComponent('numeroDocumento','input');
+	var claveVirtual=getComponent('claveVirtual','input');
+	//var clavePersonal=getComponent('clavePersonal','input');
+	var token=getComponent('token','input');
+	var buttonSubmit=getComponent('btnSubmitCont','input');
+	var linkEnrolamiento=getComponent('linkEnrolamiento','a');
+	
+	if(tipoDocumento!=null){
+		tipoDocumento.setAttribute('onclick','comboClick();');
+		tipoDocumento.setAttribute('style','pointer-events:auto');
+	}
+	
+	if(token!=null){     
+	    token.readOnly=false;
+	}
+	
+	if(buttonSubmit!=null){
+		buttonSubmit.disabled=false;
+	}
+	
+	if(linkEnrolamiento!=null){
+		linkEnrolamiento.disabled=false;
+	}
+	
+	muestraMessage();
+}
+
+function getMessages(field){
+	var tablas =  document.getElementsByTagName("table");
+	
+	var mensaje1=null;
+	var mensaje2=null;
+	
+	if(tablas!=null){
+		for(var i=0; i<tablas.length; i++) {
+			var tablaMessage = tablas[i];
+			if(tablaMessage.id.search("tablaGlobalMessages"+field)>-1){
+				if(tablaMessage.firstChild) {
+					tbody = tablaMessage.firstChild;
+					if(tbody.firstChild){
+						
+						tr1   = tbody.firstChild;	
+					    if(tr1.firstChild){
+					    	td1   = tr1.firstChild;
+					    	mensaje1=td1.textContent;
+					    	estiloMensaje1=td1.className;
+					    }
+					    
+					    if(tr1.nextSibling){
+					    	tr2=tr1.nextSibling;
+				    		if(tr2.firstChild){
+				    			td2=tr2.firstChild;
+				    			mensaje2=td2.innerHTML;
+						    	estiloMensaje2=td2.className;
+						    	break;
+				    		}
+				    	}
+					    break;
+					}
+				}
+			}
+		}	
+	}
+
+	return {
+		mensaje1,
+		mensaje2
+	}
+}
+
+function muestraMessage(field){
+	
+	var tablas =  document.getElementsByTagName("table");
+	
+	var mensaje1=null;
+	var mensaje2=null;
+	var estiloMensaje1=null;
+	var estiloMensaje2=null;
+	
+	var esExplorer=false;
+	if(navigator.appName == "Microsoft Internet Explorer"){
+		esExplorer=true;
+	}
+	
+	if(tablas!=null){
+		for(var i=0; i<tablas.length; i++) {
+			var tablaMessage = tablas[i];
+			if(tablaMessage.id.search("tablaGlobalMessages"+field)>-1){
+				if(tablaMessage.firstChild) {
+					tbody = tablaMessage.firstChild;
+					if(tbody.firstChild){
+						
+						tr1   = tbody.firstChild;	
+					    if(tr1.firstChild){
+					    	td1   = tr1.firstChild;
+					    	mensaje1=td1.textContent;
+					    	estiloMensaje1=td1.className;
+					    }
+					    
+					    if(tr1.nextSibling){
+					    	tr2=tr1.nextSibling;
+				    		if(tr2.firstChild){
+				    			td2=tr2.firstChild;
+				    			mensaje2=td2.innerHTML;
+						    	estiloMensaje2=td2.className;
+						    	break;
+				    		}
+				    	}
+					    break;
+					}
+				}
+			}
+		}	
+	}
+	
+	if(mensaje1!=null){
+
+		if(mensaje2==null){
+			//alert('Mensaje1: '+mensaje1+' Clase1: '+estiloMensaje1);
+			
+			var div = document.getElementById('divMessage'+field);
+			while(div.firstChild) {
+				div.removeChild(div.firstChild);
+			}
+			
+			var tabla=document.createElement('table');
+			tabla.setAttribute('class','tablaMessage');
+			tabla.setAttribute('align','center');
+			tabla.setAttribute('cellspacing','0'); 
+			tabla.setAttribute('cellpadding','0');
+			
+			var tbody=document.createElement('tbody');
+			var tr1=document.createElement('tr');
+			
+			var td1=document.createElement('td');
+			td1.setAttribute('class',estiloMensaje1);
+			td1.innerHTML=mensaje1;
+				
+			tr1.appendChild(td1);
+			
+			tbody.appendChild(tr1);
+			tabla.appendChild(tbody);
+			div.appendChild(tabla);
+			div.setAttribute("class", "div-mensajes-gral");
+			
+		}else{
+			var div = document.getElementById('divMessage'+field);
+			while(div.firstChild) {
+				div.removeChild(div.firstChild);
+			}
+			
+			var tabla=document.createElement('table');
+			tabla.setAttribute('class','tablaMessage');
+			tabla.setAttribute('align','center');
+			tabla.setAttribute('cellspacing','0'); 
+			tabla.setAttribute('cellpadding','0');
+			
+			var tbody=document.createElement('tbody');
+			var tr1=document.createElement('tr');
+			
+			var td1=document.createElement('td');
+			td1.setAttribute('class','mensajeHeaderMessage');
+			td1.innerHTML=mensaje1;
+				
+			tr1.appendChild(td1);
+			tr1.appendChild(td1);
+			
+			var tr2=document.createElement('tr');
+			var td2=document.createElement('td');
+			td2.setAttribute('class',estiloMensaje2);
+			td2.innerHTML=mensaje2;
+				
+			tr2.appendChild(td2);
+			
+			tbody.appendChild(tr1);
+			tbody.appendChild(tr2);
+			
+			tabla.appendChild(tbody);
+			div.appendChild(tabla);
+			div.setAttribute("class", "div-mensajes-gral");
+		}
+	} else {
+		var $msjGral = $('divMessage'+field+' div.div-mensajes-gral');
+		$msjGral.hide();
+	}
+}
+
+function onKeyPressIntro(event){
+	var aplicaEvento=true;
+	var keyCode = event.keyCode ? event.keyCode : event.which;
+	if(keyCode==13){
+		var boton = getComponent('btnSubmitCont','input');
+		if(boton!=null){
+			if(keyCode==13){ 
+		    	aplicaEvento=false;
+			    boton.click();
+			}
+		}else{
+			var linkEnrolamiento = getComponent('linkEnrolamiento','a');
+			if(linkEnrolamiento!=null){
+				aplicaEvento=false;
+				linkEnrolamiento.click();
+			}
+		}
+	}
+	return aplicaEvento;
+}
+
+function nextFocus(){
+	
+	var numeroDocumento  = getComponent('numeroDocumento','input');
+	var claveVirtual     = getComponent('claveVirtual','input');
+	var otp     		 = getComponent('otp','input');
+	var clavePersonal    = getComponent('clavePersonal','input');
+	var token            = getComponent('token','input');
+	var buttonSubmit     = getComponent('btnSubmitCont','input');
+	var linkEnrolamiento = getComponent('linkEnrolamiento','a');
+	
+	var $pNumeroDocumento = null;
+	var $pClaveVirtual    = null;
+	var $pOtp    		  = null;
+	var $pClavePersonal   = null;
+	var $pToken           = null;
+	
+	if(numeroDocumento!=null){ $pNumeroDocumento = $('#pNumeroDocumento');}
+	if(claveVirtual   !=null){ $pClaveVirtual    = $('#pClaveVirtual');}
+	if(otp   		  !=null){ $pOtp    		 = $('#pOtp');}
+	if(clavePersonal  !=null){ $pClavePersonal   = $('#pClavePersonal');}
+	if(token          !=null){ $pToken           = $('#pToken');}
+	
+	var errorTipoDocumento   = false;
+	var errorNumeroDocumento = false;
+	var errorClaveWeb        = false;
+	var errorClaveVirtual    = false;
+	var errorOtp    		 = false;
+	var errorClavePersonal   = false; 
+	var errorClaveToken      = false;
+	
+	if(numeroDocumento!=null){
+		if($pNumeroDocumento.html()!=''){
+			errorNumeroDocumento=true;
+		}
+	}
+	
+	if(claveVirtual!=null){
+		if($pClaveVirtual.html()!=''){
+			errorClaveVirtual=true;
+		}
+	}
+	
+	if(otp!=null){
+		if($pOtp.html()!=''){
+			errorOtp=true;
+		}
+	}
+	
+	if(clavePersonal!=null){
+		if($pClavePersonal.html()!=''){
+			errorClavePersonal=true;
+		}
+	}
+	
+	if(token!=null){
+		if($pToken.html()!=''){
+			errorClaveToken=true;
+		}
+	}
+	
+	if(numeroDocumento!=null){
+		if(errorNumeroDocumento && !errorTipoDocumento){
+			numeroDocumento.focus();
+		}else if(((numeroDocumento.value==null || numeroDocumento.value=='')) && claveVirtual==null && clavePersonal==null && token==null){
+			numeroDocumento.focus();
+		}
+	}
+	
+	if(claveVirtual!=null){
+		if(errorClaveVirtual && !errorOtp && !errorNumeroDocumento){
+			claveVirtual.focus();
+		}else if(!errorClaveVirtual && otp==null){
+			claveVirtual.focus();
+		}else if(!errorClaveVirtual && otp!=null && (otp.value!=null && otp.value=='')){
+			otp.focus();
+		}else if(errorOtp){
+			otp.focus();
+		}else if(errorNumeroDocumento){
+			numeroDocumento.focus();
+		}
+	}
+	
+	if(clavePersonal!=null){
+		if(errorClavePersonal && !errorNumeroDocumento){
+			clavePersonal.focus();
+		}else if(!errorNumeroDocumento){
+			clavePersonal.focus();
+		}else if(errorNumeroDocumento){
+			numeroDocumento.focus();
+		}
+	}
+	
+	if(token!=null){
+	    if(errorClaveToken && !errorClavePersonal && !errorNumeroDocumento){
+			token.focus();
+		}else if(!errorClaveToken && clavePersonal==null){
+			token.focus();
+		}else if(!errorClaveToken && clavePersonal!=null && (clavePersonal.value!=null && clavePersonal.value!='')){
+			token.focus();
+		}else if(errorClavePersonal){
+			clavePersonal.focus();
+		}else if(errorNumeroDocumento){
+			numeroDocumento.focus();
+		}
+	}
+	
+	if(linkEnrolamiento!=null){
+		linkEnrolamiento.focus();
+	}
+	
+	muestraMessage();
+}
+
+function ponerFocoEnLink(){
+	var linkEnrolamiento = getComponent('linkEnrolamiento','a');
+	if(linkEnrolamiento!=null){
+		linkEnrolamiento.focus();
+	}
+	
+	muestraMessage();
+}
+
+function findPos(obj) {
+	var curleft = curtop = 0;
+	if (obj.offsetParent) {
+		do {
+			curleft += obj.offsetLeft;
+			curtop += obj.offsetTop;
+		} while (obj = obj.offsetParent);
+		return [curleft,curtop];
+	}
+}
+
+function comboClick() {
+	var divSelectInputTipoDoc = document.getElementById('selectInputTipoDoc');
+	var divSelectInputContentTipoDoc = document.getElementById('selectInputContentTipoDoc');
+	if(divSelectInputContentTipoDoc.style.display != 'block') {
+		var pos = findPos(divSelectInputTipoDoc);
+		divSelectInputContentTipoDoc.style.left = pos[0] + 'px';
+		divSelectInputContentTipoDoc.style.top = (pos[1] + divSelectInputTipoDoc.offsetHeight) + 'px';
+		divSelectInputTipoDoc.className = 'combo desplegado';
+		divSelectInputContentTipoDoc.style.display = 'block';
+		divSelectInputContentTipoDoc.className = 'combo-content-scroll';
+	} else {
+		divSelectInputTipoDoc.className = 'combo plegado';
+		divSelectInputContentTipoDoc.style.display = 'none';
+	}
+}
+
+function selectItemCombo(item){
+	var cod = item.id.split(';')[0];
+	var desc = item.id.split(';')[1];
+	document.getElementById(idSelectedTipoDocCod).value = cod;
+	document.getElementById(idSelectedTipoDocCod).attributes['value'].nodeValue = cod;
+	document.getElementById(idSelectedTipoDocDesc).textContent = desc;
+	document.getElementById(idLimpiarFormularioBtn).click();	
+	comboClick();
+}
+
+function onFocusNumDocumento(){
+	var divSelectInputContentTipoDoc = document.getElementById('selectInputContentTipoDoc');
+		if ( divSelectInputContentTipoDoc != null ) {
+		divSelectInputContentTipoDoc.className = 'combo-content-scroll';
+		if(divSelectInputContentTipoDoc.style.display == 'block') {
+			comboClick();
+		}
+	}
+}
+
+function onFocusNumDocEnmascarado() {
+	var numDocumentoEnmasc = document.getElementById('formAutenticar:numeroDocumentoEnmasc');
+	var numDocumento = document.getElementById('formAutenticar:numeroDocumento');
+	
+	if ( ! numDocumento.readOnly && numDocumento.readOnly != "readonly") {
+		numDocumentoEnmasc.style.display = 'none';
+		numDocumento.style.display = 'block';
+		numDocumento.value = '';
+		numDocumento.focus();
+	}
+}
+
+function addLoadEvent(func) {
+    var oldonload = window.onload;
+    if (typeof window.onload != 'function') {
+        window.onload = func;
+    } else {
+        window.onload = function() {
+            if (oldonload) {
+	        oldonload();
+            }
+            func();
+        };
+    }
+}
+
+
+function replaceCharactersAndMask(ipe, hrpi, event){
+	event.target.value = event.target.value.replace(/[^0-9*]/g, '')
+	inputMask(ipe, hrpi);
+}
+
+
+function inputMask(ipe, hrpi){
+	  var hrpe = document.getElementById(hrpi);
+	  var c = ipe.value.replace('*','');
+	  var d = Math.abs(ipe.value.length - hrpe.value.length);
+	  if (ipe.value.length > hrpe.value.length ) {
+	      hrpe.value = hrpe.value + ipe.value.substring(ipe.value.length - d, ipe.value.length);
+	      ipe.value = ipe.value.replace(/(.)/g,'*');
+	      return;
+	  }
+	  
+	  if (ipe.value.length == hrpe.value.length ) {
+		  ipe.value = ipe.value.replace(/(.)/g,'*');
+	      return;
+	  }
+	  
+	  if (ipe.value.length <= 1 ) {
+	      hrpe.value = c;
+	      ipe.value = ipe.value.replace(/(.)/g,'*');
+	      return;
+	  }
+	  
+	  if (ipe.value.length < hrpe.value.length ) {
+	      hrpe.value = hrpe.value.substring(0, hrpe.value.length - d);
+	      ipe.value = ipe.value.replace(/(.)/g,'*');
+	  }
+}

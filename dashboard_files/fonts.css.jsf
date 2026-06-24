@@ -1,0 +1,73 @@
+/*MODIFICADO*/
+@font-face {
+	font-family: 'HelveticaNeueLTStdThCn';
+	src: url("/transaccional/dashboard/javax.faces.resource/fonts/HelveticaNeueLTStdThCn.eot.jsf?ln=css");
+	src: url("/transaccional/dashboard/javax.faces.resource/fonts/HelveticaNeueLTStdThCn.eot.jsf?ln=css?#iefix")
+		format('embedded-opentype'),
+		url("/transaccional/dashboard/javax.faces.resource/fonts/HelveticaNeueLTStdThCn.woff2.jsf?ln=css") format('woff2'),
+		url("/transaccional/dashboard/javax.faces.resource/fonts/HelveticaNeueLTStdThCn.woff.jsf?ln=css") format('woff'),
+		url("/transaccional/dashboard/javax.faces.resource/fonts/HelveticaNeueLTStdThCn.ttf.jsf?ln=css") format('truetype'),
+		url("/transaccional/dashboard/javax.faces.resource/fonts/HelveticaNeueLTStdThCn.svg.jsf?ln=css#HelveticaNeueLTStdThCn") format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+/*MODIFICADO*/
+@font-face {
+	font-family: 'HelveticaNeueLTStdCn';
+	src: url("/transaccional/dashboard/javax.faces.resource/fonts/HelveticaNeueLTStdCn.eot.jsf?ln=css");
+	src: url("/transaccional/dashboard/javax.faces.resource/fonts/HelveticaNeueLTStdCn.eot.jsf?ln=css?#iefix")
+		format('embedded-opentype'),
+		url("/transaccional/dashboard/javax.faces.resource/fonts/HelveticaNeueLTStdCn.woff2.jsf?ln=css") format('woff2'),
+		url("/transaccional/dashboard/javax.faces.resource/fonts/HelveticaNeueLTStdCn.woff.jsf?ln=css") format('woff'),
+		url("/transaccional/dashboard/javax.faces.resource/fonts/HelveticaNeueLTStdCn.ttf.jsf?ln=css") format('truetype'),
+		url("/transaccional/dashboard/javax.faces.resource/fonts/HelveticaNeueLTStdCn.svg.jsf?ln=css#HelveticaNeueLTStdCn")
+		format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+/*MODIFICADO*/
+@font-face {
+	font-family: 'HelveticaNeueLTStdMdCn';
+	src: url("/transaccional/dashboard/javax.faces.resource/fonts/HelveticaNeueLTStdMdCn.eot.jsf?ln=css");
+	src: url("/transaccional/dashboard/javax.faces.resource/fonts/HelveticaNeueLTStdMdCn.eot.jsf?ln=css?#iefix#")
+		format('embedded-opentype'),
+		url("/transaccional/dashboard/javax.faces.resource/fonts/HelveticaNeueLTStdMdCn.woff2.jsf?ln=css") format('woff2'),
+		url("/transaccional/dashboard/javax.faces.resource/fonts/HelveticaNeueLTStdMdCn.woff.jsf?ln=css") format('woff'),
+		url("/transaccional/dashboard/javax.faces.resource/fonts/HelveticaNeueLTStdMdCn.ttf.jsf?ln=css") format('truetype'),
+		url("/transaccional/dashboard/javax.faces.resource/fonts/HelveticaNeueLTStdMdCn.svg.jsf?ln=css#HelveticaNeueLTStdMdCn")
+		format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+/*MODIFICADO*/
+@font-face {
+	font-family: 'HelveticaNeueLTStdBdCn';
+	src: url("/transaccional/dashboard/javax.faces.resource/fonts/HelveticaNeueLTStdBdCn.eot.jsf?ln=css");
+	src: url("/transaccional/dashboard/javax.faces.resource/fonts/HelveticaNeueLTStdBdCn.eot.jsf?ln=css?#iefix")
+		format('embedded-opentype'),
+		url("/transaccional/dashboard/javax.faces.resource/fonts/HelveticaNeueLTStdBdCn.woff2.jsf?ln=css") format('woff2'),
+		url("/transaccional/dashboard/javax.faces.resource/fonts/HelveticaNeueLTStdBdCn.woff.jsf?ln=css") format('woff'),
+		url("/transaccional/dashboard/javax.faces.resource/fonts/HelveticaNeueLTStdBdCn.ttf.jsf?ln=css") format('truetype'),
+		url("/transaccional/dashboard/javax.faces.resource/fonts/HelveticaNeueLTStdBdCn.svg.jsf?ln=css#HelveticaNeueLTStdBdCn")
+		format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+/*MODIFICADO*/
+@font-face {
+	font-family: 'HelveticaNeueLTStdHvCn';
+	src: url("/transaccional/dashboard/javax.faces.resource/fonts/HelveticaNeueLTStdHvCn.eot.jsf?ln=css");
+	src: url("/transaccional/dashboard/javax.faces.resource/fonts/HelveticaNeueLTStdHvCn.eot.jsf?ln=css?#iefix")
+		format('embedded-opentype'),
+		url("/transaccional/dashboard/javax.faces.resource/fonts/HelveticaNeueLTStdHvCn.woff2.jsf?ln=css") format('woff2'),
+		url("/transaccional/dashboard/javax.faces.resource/fonts/HelveticaNeueLTStdHvCn.woff.jsf?ln=css") format('woff'),
+		url("/transaccional/dashboard/javax.faces.resource/fonts/HelveticaNeueLTStdHvCn.ttf.jsf?ln=css") format('truetype'),
+		url("/transaccional/dashboard/javax.faces.resource/fonts/HelveticaNeueLTStdHvCn.svg.jsf?ln=css#HelveticaNeueLTStdHvCn")
+		format('svg');
+	font-weight: normal;
+	font-style: normal;
+}

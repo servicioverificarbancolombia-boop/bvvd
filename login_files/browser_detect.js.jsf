@@ -1,0 +1,85 @@
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+jQuery(document).ready(function() {
+    
+    $(".despliegue-login").on("click", function(){
+        validarIngresoClientes();
+    });
+    
+    var browser = get_browser_info();
+    
+    /*Internet Explorer MENOR a 9*/
+    if (navigator.userAgent.indexOf('MSIE') !=-1 && parseInt(browser.version) < 9){
+        window.location.assign("/transaccional/personas/nuevo/otros_navegadores.jsf");
+    }    
+});
+
+function validarIngresoClientes() {
+    var browser = get_browser_info();
+    
+    var IE = 10;
+    var MZ = 14;
+    var GC = 37;
+    
+    var browser = get_browser_info();
+    
+    /*Internet Explorer*/
+    if (navigator.userAgent.indexOf('MSIE') !=-1 && parseInt(browser.version) < IE) {
+        abrirNotificacion();
+    }
+    /*Mozilla Firefox*/
+    else if (navigator.userAgent.indexOf('Firefox') !=-1 && browser.version < MZ) {
+        abrirNotificacion();
+    }
+    /*Google Chrome*/
+    else if (navigator.userAgent.indexOf('Chrome') !=-1 && browser.version < GC) {
+        abrirNotificacion();
+    }
+}
+
+function get_browser_info(){
+    var ua=navigator.userAgent,tem,M=ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || []; 
+    if(/trident/i.test(M[1])){
+        tem=/\brv[ :]+(\d+)/g.exec(ua) || []; 
+        return {name:'IE',version:(tem[1]||'')};
+    }   
+    if(M[1]==='Chrome'){
+        tem=ua.match(/\bOPR\/(\d+)/);
+        if(tem!=null)   {return {name:'Opera', version:tem[1]};}
+    }   
+    M=M[2]? [M[1], M[2]]: [navigator.appName, navigator.appVersion, '-?'];
+    if((tem=ua.match(/version\/(\d+)/i))!=null) {M.splice(1,1,tem[1]);}
+    return {
+        name: M[0],
+        version: M[1]
+    };
+}
+
+function abrirNotificacion(){	
+    
+    var contentNotificacion = '<div style="display:none;">';
+    contentNotificacion += '<div class="contenedor-ifrm-notif" data-id="NOT" style="height:100%; width:575px;">';
+    
+    contentNotificacion += '<div class="popup-nav">';
+    contentNotificacion += '<img src="/transaccional/javax.faces.resource/version_navegador_antigua.png.jsf?ln=img" alt="">';
+    contentNotificacion += '<div class="b-close cerrar-pop-nav"></div>';
+    contentNotificacion += '</div></div>';
+//   
+//    
+//    contentNotificacion += '<span class="b-close" title="Cerrar"><i class="icono-cerrar-modal"></i></span>';
+//    contentNotificacion += '<img src="/transaccional/javax.faces.resource/version_navegador_antigua.png.jsf?ln=img" />';
+//    contentNotificacion += '</div></div>';
+    
+    $("body").append(contentNotificacion);
+    notificacion = true;
+    
+    var scroll = 0;
+    $('div.contenedor-ifrm-notif').bPopup({
+        position: ['auto', scroll ],
+        positionStyle: 'fixed'
+    });
+}

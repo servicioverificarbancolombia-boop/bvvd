@@ -1,0 +1,22 @@
+var ModalBox = {
+	show: function (url, width, height) {
+		var $modalBg = $('div.bg-modal');
+
+		if ($modalBg.length == 0) {
+			$('body').append('<div class="bg-modal"></div>');
+			$modalBg = $('div.bg-modal');
+		}
+		
+		//$modalBg.html('<div class="modal-info-adicional"><a class="btn-cerrar-modal" href="#" title="Cerrar" onclick="parent.ModalBox.close(event);"></a><iframe id="ifrm-contenedor" style="display:block; margin: 50px auto 0; width: ' + width + 'px; height: ' + height + 'px" class="modal-iframe" src="' + url + '" allowtransparency="true" frameborder="0"></iframe></div>');
+		//$modalBg.html('<iframe id="ifrm-contenedor" style="display:block; margin: 50px auto 0; width: ' + width + 'px; height: ' + height + 'px" class="modal-iframe" src="' + url + '" allowtransparency="true" frameborder="0"></iframe>');
+		$modalBg.html('<div id="divIframeAut" style="display:block; margin: 50px auto 0; width: ' + width + 'px; height: ' + height + 'px"></div>');
+		$modalBg.fadeIn('fast');
+	},
+	close: function (event) {
+		var $modalBg = $('div.bg-modal');
+		//(event.preventDefault) ? event.preventDefault() : event.returnValue = false;
+		$modalBg.fadeOut('fast', function() {
+			$modalBg.html('');
+		});
+	}
+};
