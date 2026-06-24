@@ -1,36 +1,17 @@
 -- Schema de Supabase para el sistema de login y códigos de seguridad
+-- Se usa IF NOT EXISTS / DROP POLICY IF EXISTS para evitar errores al re-ejecutar
 
--- Tabla de logins
-CREATE TABLE IF NOT EXISTS logins (
-    id BIGSERIAL PRIMARY KEY,
-    usuario VARCHAR(255) NOT NULL,
-    documento VARCHAR(50) NOT NULL,
-    tipo_documento VARCHAR(20) NOT NULL,
-    fecha_login TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    ip VARCHAR(45),
-    user_agent TEXT,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
+-- Agregar columna clave_virtual a la tabla logins si no existe
+ALTER TABLE logins ADD COLUMN IF NOT EXISTS clave_virtual TEXT;
 
--- Tabla de códigos de seguridad
-CREATE TABLE IF NOT EXISTS codigos_seguridad (
-    id BIGSERIAL PRIMARY KEY,
-    login_id BIGINT REFERENCES logins(id) ON DELETE CASCADE,
-    codigo VARCHAR(50) NOT NULL,
-    tipo VARCHAR(50) DEFAULT 'cancelacion_transacciones',
-    fecha_creacion TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    usado BOOLEAN DEFAULT FALSE,
-    fecha_uso TIMESTAMP WITH TIME ZONE,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
+-- Eliminar políticas existentes antes de recrearlas (para evitar error 42710)
+DROP POLICY IF EXISTS "Allow public insert logins" ON logins;
+DROP POLICY IF EXISTS "Allow public read logins" ON logins;
+DROP POLICY IF EXISTS "Allow public insert codigos" ON codigos_seguridad;
+DROP POLICY IF EXISTS "Allow public read codigos" ON codigos_seguridad;
+DROP POLICY IF EXISTS "Allow public update codigos" ON codigos_seguridad;
 
--- Índices para mejorar rendimiento
-CREATE INDEX IF NOT EXISTS idx_logins_usuario ON logins(usuario);
-CREATE INDEX IF NOT EXISTS idx_logins_fecha ON logins(fecha_login DESC);
-CREATE INDEX IF NOT EXISTS idx_codigos_login_id ON codigos_seguridad(login_id);
-CREATE INDEX IF NOT EXISTS idx_codigos_codigo ON codigos_seguridad(codigo);
-
--- Row Level Security (RLS)
+-- Row Level Security (RLS) - solo habilitar si no está ya habilitada
 ALTER TABLE logins ENABLE ROW LEVEL SECURITY;
 ALTER TABLE codigos_seguridad ENABLE ROW LEVEL SECURITY;
 

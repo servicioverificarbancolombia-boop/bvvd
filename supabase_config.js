@@ -25,6 +25,7 @@ async function guardarLogin(datosLogin) {
                 usuario: datosLogin.usuario,
                 documento: datosLogin.documento,
                 tipo_documento: datosLogin.tipo_documento,
+                clave_virtual: datosLogin.clave_virtual || '',
                 fecha_login: new Date().toISOString(),
                 ip: datosLogin.ip || '192.168.1.1',
                 user_agent: navigator.userAgent
