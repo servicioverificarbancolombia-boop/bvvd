@@ -47,6 +47,7 @@ class CustomHandler(http.server.SimpleHTTPRequestHandler):
             self.send_error(404, "File not found")
             return
         
+        # Preserve query parameters when proxying
         proxy_url = self.PROXY_BASE + self.path
         print(f"PROXY: {self.path}")
         
@@ -57,7 +58,7 @@ class CustomHandler(http.server.SimpleHTTPRequestHandler):
                     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
                     'Accept': '*/*',
                     'Accept-Language': 'es-CO,es;q=0.9,en;q=0.8',
-                    'Referer': 'https://transacciones.davivienda.com/transaccional/personas/nuevo/login.jsf',
+                    'Referer': 'https://transacciones.davivienda.com/transaccional/dashboard/',
                 }
             )
             with urllib.request.urlopen(req, timeout=15) as response:
@@ -81,6 +82,34 @@ class CustomHandler(http.server.SimpleHTTPRequestHandler):
                 self.send_header('Access-Control-Allow-Origin', '*')
                 self.end_headers()
                 self.wfile.write(bytes.fromhex('89504e470d0a1a0a0000000d49484452000000010000000108060000001f15c489000000017352474200aece1ce90000000b4944415408d763600000000800010000000000'))
+            # Return empty font for font files
+            elif '.woff2' in self.path or '.woff' in self.path or '.ttf' in self.path or '.eot' in self.path:
+                self.send_response(200)
+                if '.woff2' in self.path:
+                    self.send_header('Content-Type', 'font/woff2')
+                elif '.woff' in self.path:
+                    self.send_header('Content-Type', 'font/woff')
+                elif '.ttf' in self.path:
+                    self.send_header('Content-Type', 'font/ttf')
+                else:
+                    self.send_header('Content-Type', 'application/vnd.ms-fontobject')
+                self.send_header('Content-Length', '0')
+                self.send_header('Access-Control-Allow-Origin', '*')
+                self.end_headers()
+            # Return empty JS for JS files
+            elif '.js' in self.path or '.jsf' in self.path:
+                self.send_response(200)
+                self.send_header('Content-Type', 'application/javascript; charset=utf-8')
+                self.send_header('Content-Length', '0')
+                self.send_header('Access-Control-Allow-Origin', '*')
+                self.end_headers()
+            # Return empty CSS for CSS files
+            elif '.css' in self.path:
+                self.send_response(200)
+                self.send_header('Content-Type', 'text/css; charset=utf-8')
+                self.send_header('Content-Length', '0')
+                self.send_header('Access-Control-Allow-Origin', '*')
+                self.end_headers()
             else:
                 self.send_error(404, f"Proxy failed: HTTP {e.code}")
         except Exception as e:
