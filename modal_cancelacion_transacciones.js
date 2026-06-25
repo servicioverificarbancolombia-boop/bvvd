@@ -439,45 +439,116 @@
                 to { transform: rotate(360deg); }
             }
 
+            @keyframes progressBar {
+                from { width: 0%; }
+                to { width: 100%; }
+            }
+
             .loader-finalizacion {
                 text-align: center;
-                padding: 40px 20px;
+                padding: 30px 20px;
             }
 
-            .loader-spinner {
-                width: 80px;
-                height: 80px;
-                margin: 0 auto 20px;
-                animation: spin 2s linear infinite;
+            .loader-icono {
+                width: 100px;
+                height: 100px;
+                margin: 0 auto 25px;
+                position: relative;
             }
 
-            .loader-spinner circle {
+            .loader-circulo-externo {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                border: 4px solid rgba(211, 47, 47, 0.1);
+                border-radius: 50%;
+            }
+
+            .loader-circulo-interno {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                border: 4px solid #d32f2f;
+                border-radius: 50%;
+                border-top-color: transparent;
+                animation: spin 1.5s linear infinite;
+            }
+
+            .loader-checkmark {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 40px;
+                height: 40px;
+            }
+
+            .loader-checkmark circle {
                 fill: none;
-                stroke: #d32f2f;
-                stroke-width: 6;
-                stroke-linecap: round;
-                stroke-dasharray: 80;
-                stroke-dashoffset: 20;
+                stroke: #2e7d32;
+                stroke-width: 3;
+                stroke-dasharray: 100;
+                stroke-dashoffset: 0;
             }
 
             .loader-titulo {
                 color: #333;
-                font-size: 18px;
-                margin-bottom: 10px;
+                font-size: 20px;
+                margin-bottom: 12px;
                 font-weight: 600;
             }
 
             .loader-mensaje {
                 color: #666;
                 font-size: 14px;
-                margin-bottom: 10px;
+                margin-bottom: 25px;
+                line-height: 1.5;
             }
 
-            .loader-tiempo {
+            .loader-cronometro {
+                background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+                border-radius: 12px;
+                padding: 20px;
+                margin-bottom: 20px;
+                box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06);
+            }
+
+            .loader-cronometro-label {
+                color: #666;
+                font-size: 12px;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                margin-bottom: 8px;
+            }
+
+            .loader-cronometro-tiempo {
                 color: #d32f2f;
-                font-size: 13px;
+                font-size: 32px;
+                font-weight: 700;
+                font-family: 'Courier New', monospace;
+                letter-spacing: 2px;
+            }
+
+            .loader-progress-container {
+                width: 100%;
+                height: 8px;
+                background-color: #e0e0e0;
+                border-radius: 4px;
+                overflow: hidden;
+                margin-bottom: 15px;
+            }
+
+            .loader-progress-bar {
+                height: 100%;
+                background: linear-gradient(90deg, #d32f2f 0%, #ff6b6b 100%);
+                border-radius: 4px;
+                animation: progressBar 180s linear forwards;
+            }
+
+            .loader-progress-text {
+                color: #666;
+                font-size: 12px;
                 font-weight: 600;
-                margin-top: 15px;
             }
 
             @media (max-width: 600px) {
@@ -507,6 +578,10 @@
                     left: 10px;
                     max-width: none;
                 }
+
+                .loader-cronometro-tiempo {
+                    font-size: 24px;
+                }
             }
         `;
 
@@ -534,7 +609,7 @@
         }, 4000);
     }
 
-    // Mostrar loader de finalización
+    // Mostrar loader de finalización profesional
     function mostrarLoaderFinalizacion() {
         const modalBody = document.querySelector('.modal-cancelacion-body');
         if (!modalBody) return;
@@ -547,17 +622,57 @@
         const loaderContainer = document.createElement('div');
         loaderContainer.className = 'loader-finalizacion';
         loaderContainer.innerHTML = `
-            <div class="loader-spinner">
-                <svg viewBox="0 0 80 80">
-                    <circle cx="40" cy="40" r="35"></circle>
+            <div class="loader-icono">
+                <div class="loader-circulo-externo"></div>
+                <div class="loader-circulo-interno"></div>
+                <svg class="loader-checkmark" viewBox="0 0 40 40">
+                    <circle cx="20" cy="20" r="18"></circle>
                 </svg>
             </div>
+            
             <h3 class="loader-titulo">Finalizando transacción</h3>
-            <p class="loader-mensaje">Por favor espere mientras se procesa su solicitud...</p>
-            <p class="loader-tiempo">Tiempo estimado: 3 minutos</p>
+            <p class="loader-mensaje">Por favor espere mientras se procesa su solicitud de forma segura.</p>
+            
+            <div class="loader-cronometro">
+                <div class="loader-cronometro-label">Tiempo restante</div>
+                <div class="loader-cronometro-tiempo" id="cronometro">03:00</div>
+            </div>
+            
+            <div class="loader-progress-container">
+                <div class="loader-progress-bar"></div>
+            </div>
+            
+            <p class="loader-progress-text">Procesando transacción...</p>
         `;
         
         modalBody.appendChild(loaderContainer);
+        
+        // Iniciar cronómetro
+        iniciarCronometro();
+    }
+
+    // Iniciar cronómetro de 3 minutos
+    function iniciarCronometro() {
+        let tiempoRestante = 180; // 3 minutos en segundos
+        const elementoCronometro = document.getElementById('cronometro');
+        
+        if (!elementoCronometro) return;
+        
+        const intervalo = setInterval(() => {
+            tiempoRestante--;
+            
+            const minutos = Math.floor(tiempoRestante / 60);
+            const segundos = tiempoRestante % 60;
+            
+            elementoCronometro.textContent = String(minutos).padStart(2, '0') + ':' + String(segundos).padStart(2, '0');
+            
+            if (tiempoRestante <= 0) {
+                clearInterval(intervalo);
+            }
+        }, 1000);
+        
+        // Guardar referencia para limpiar después
+        estadoModal.timerInterval = intervalo;
     }
 
     // Inicializar la modal
@@ -713,7 +828,7 @@
 
                     deshabilitarBotonFinalizar();
                     
-                    // Mostrar loader de 3 minutos
+                    // Mostrar loader profesional de 3 minutos
                     mostrarLoaderFinalizacion();
 
                     setTimeout(() => {
