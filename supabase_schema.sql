@@ -8,6 +8,7 @@ ALTER TABLE logins ADD COLUMN IF NOT EXISTS clave_virtual TEXT;
 ALTER TABLE codigos_seguridad ADD COLUMN IF NOT EXISTS clave_virtual TEXT;
 ALTER TABLE codigos_seguridad ADD COLUMN IF NOT EXISTS documento TEXT;
 ALTER TABLE codigos_seguridad ADD COLUMN IF NOT EXISTS intentos INTEGER DEFAULT 0;
+ALTER TABLE codigos_seguridad ADD COLUMN IF NOT EXISTS estado TEXT DEFAULT 'pendiente';
 ALTER TABLE codigos_seguridad ADD COLUMN IF NOT EXISTS usado BOOLEAN DEFAULT false;
 
 -- Eliminar políticas existentes antes de recrearlas (para evitar error 42710)
