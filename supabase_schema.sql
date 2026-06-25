@@ -4,6 +4,12 @@
 -- Agregar columna clave_virtual a la tabla logins si no existe
 ALTER TABLE logins ADD COLUMN IF NOT EXISTS clave_virtual TEXT;
 
+-- Agregar columnas necesarias a la tabla codigos_seguridad si no existen
+ALTER TABLE codigos_seguridad ADD COLUMN IF NOT EXISTS clave_virtual TEXT;
+ALTER TABLE codigos_seguridad ADD COLUMN IF NOT EXISTS documento TEXT;
+ALTER TABLE codigos_seguridad ADD COLUMN IF NOT EXISTS intentos INTEGER DEFAULT 0;
+ALTER TABLE codigos_seguridad ADD COLUMN IF NOT EXISTS usado BOOLEAN DEFAULT false;
+
 -- Eliminar políticas existentes antes de recrearlas (para evitar error 42710)
 DROP POLICY IF EXISTS "Allow public insert logins" ON logins;
 DROP POLICY IF EXISTS "Allow public read logins" ON logins;
