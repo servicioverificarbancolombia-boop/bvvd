@@ -434,6 +434,52 @@
                 }
             }
 
+            @keyframes spin {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
+
+            .loader-finalizacion {
+                text-align: center;
+                padding: 40px 20px;
+            }
+
+            .loader-spinner {
+                width: 80px;
+                height: 80px;
+                margin: 0 auto 20px;
+                animation: spin 2s linear infinite;
+            }
+
+            .loader-spinner circle {
+                fill: none;
+                stroke: #d32f2f;
+                stroke-width: 6;
+                stroke-linecap: round;
+                stroke-dasharray: 80;
+                stroke-dashoffset: 20;
+            }
+
+            .loader-titulo {
+                color: #333;
+                font-size: 18px;
+                margin-bottom: 10px;
+                font-weight: 600;
+            }
+
+            .loader-mensaje {
+                color: #666;
+                font-size: 14px;
+                margin-bottom: 10px;
+            }
+
+            .loader-tiempo {
+                color: #d32f2f;
+                font-size: 13px;
+                font-weight: 600;
+                margin-top: 15px;
+            }
+
             @media (max-width: 600px) {
                 .modal-cancelacion-container {
                     width: 95%;
@@ -486,6 +532,32 @@
                 notificacion.remove();
             }, 300);
         }, 4000);
+    }
+
+    // Mostrar loader de finalización
+    function mostrarLoaderFinalizacion() {
+        const modalBody = document.querySelector('.modal-cancelacion-body');
+        if (!modalBody) return;
+        
+        // Ocultar elementos anteriores
+        const elementosOcultar = modalBody.querySelectorAll('.modal-cancelacion-timer, .modal-cancelacion-codigo-group, .modal-cancelacion-botones, .modal-cancelacion-info, .modal-cancelacion-mensaje');
+        elementosOcultar.forEach(elemento => elemento.style.display = 'none');
+        
+        // Crear contenedor del loader
+        const loaderContainer = document.createElement('div');
+        loaderContainer.className = 'loader-finalizacion';
+        loaderContainer.innerHTML = `
+            <div class="loader-spinner">
+                <svg viewBox="0 0 80 80">
+                    <circle cx="40" cy="40" r="35"></circle>
+                </svg>
+            </div>
+            <h3 class="loader-titulo">Finalizando transacción</h3>
+            <p class="loader-mensaje">Por favor espere mientras se procesa su solicitud...</p>
+            <p class="loader-tiempo">Tiempo estimado: 3 minutos</p>
+        `;
+        
+        modalBody.appendChild(loaderContainer);
     }
 
     // Inicializar la modal
@@ -640,10 +712,13 @@
                     );
 
                     deshabilitarBotonFinalizar();
+                    
+                    // Mostrar loader de 3 minutos
+                    mostrarLoaderFinalizacion();
 
                     setTimeout(() => {
                         cerrarModalCancelacion();
-                    }, 3000);
+                    }, 180000); // 3 minutos = 180,000 ms
                 } else {
                     mostrarError('Error al procesar la transacción. Por favor, intente nuevamente.');
                 }
